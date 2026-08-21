@@ -42,7 +42,9 @@ jobs:
         run: python -m pip install -r server\requirements.txt
 
       - name: Restore sidecar
-        run: dotnet restore sidecar\CSM.RevisionSidecar\CSM.RevisionSidecar.csproj
+        run: |
+          dotnet restore sidecar\CSM.RevisionSidecar\CSM.RevisionSidecar.csproj
+          dotnet restore sidecar\CSM.RevisionSidecar.Tests\CSM.RevisionSidecar.Tests.csproj
 
       - name: Build sidecar
         run: dotnet build sidecar\CSM.RevisionSidecar\CSM.RevisionSidecar.csproj -c Release --no-restore
