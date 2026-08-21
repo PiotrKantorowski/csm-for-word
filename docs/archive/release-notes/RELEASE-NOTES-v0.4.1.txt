@@ -1,0 +1,9 @@
+CSM v0.4.1
+
+Główne zmiany:
+- Dodano raport anonimizacji w odpowiedzi API i panelu Word.
+- Dodano ostrzeżenia o potencjalnych pozostałościach po pseudonimizacji.
+- Dodano raport jakości przywracania wersji jawnej.
+- Zachowano dotychczasowe poprawki instalatora, lokalnego serwera, leksykonu prawniczego, identyfikatorów prawnych oraz odmian imion/nazwisk.
+
+Cel wersji: jakość i zaufanie przed pracą z Claude for Word.

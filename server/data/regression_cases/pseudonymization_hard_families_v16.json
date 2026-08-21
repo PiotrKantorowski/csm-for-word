@@ -1,0 +1,94 @@
+[
+  {
+    "id": "A1_ocr_pesel_spaces",
+    "category": "OCR_DAMAGE",
+    "known_gap": true,
+    "text": "PESEL:  4 4 0 5 1 4 0 1 3 5 9, zamieszkały w Krakowie.",
+    "expect_masked": ["4 4 0 5 1 4 0 1 3 5 9"],
+    "expected_categories": ["PESEL"],
+    "note": "OCR often splits digit groups with spaces. A checksum-valid PESEL split this way is not recognised at all — the 11-contiguous-digit regex never fires."
+  },
+  {
+    "id": "A2_ocr_missing_diacritics",
+    "category": "OCR_DAMAGE",
+    "known_gap": false,
+    "text": "Pani Iwona Scibior podpisała umowę w imieniu Wynajmującego.",
+    "expect_masked": ["Iwona Scibior"],
+    "expected_categories": ["PERSON"],
+    "note": "Regression guard: a name missing Polish diacritics (common OCR artifact) is still detected as PERSON."
+  },
+  {
+    "id": "B1_merged_words_name",
+    "category": "MERGED_TEXT",
+    "known_gap": true,
+    "text": "JanKowalskiprzekazał dokumenty osobiście w kancelarii.",
+    "expect_masked": ["JanKowalski"],
+    "expected_categories": ["PERSON"],
+    "note": "Bad text extraction sometimes glues adjacent words with no space. A glued first-name+surname+verb token is not recognised as PERSON at all."
+  },
+  {
+    "id": "B2_label_glued_pesel",
+    "category": "MERGED_TEXT",
+    "known_gap": false,
+    "text": "PESEL90010112345 został podany w załączniku nr 2.",
+    "expect_masked": ["90010112345"],
+    "expected_categories": ["PESEL"],
+    "note": "Regression guard: label glued directly to the value with zero separator (and an invalid checksum) is still masked via the label-context safety rule."
+  },
+  {
+    "id": "C1_table_pipe_separated_row",
+    "category": "FLATTENED_TABLE",
+    "known_gap": false,
+    "text": "Imię i nazwisko | PESEL | Adres\nJan Nowak | 44051401359 | ul. Polna 5, Warszawa",
+    "expect_masked": ["Jan Nowak", "44051401359", "ul. Polna 5, Warszawa"],
+    "expected_categories": ["PERSON", "PESEL", "ADDRESS"],
+    "note": "Regression guard: a pipe-separated single-line table row (header on its own line, data row below) masks all three columns correctly."
+  },
+  {
+    "id": "D1_bare_ambiguous_surname",
+    "category": "BARE_SURNAME_AMBIGUOUS",
+    "known_gap": true,
+    "text": "Wczoraj rozmawiałem z Kowalem w sprawie ugody.",
+    "expect_masked": ["Kowalem"],
+    "expected_categories": ["PERSON"],
+    "note": "An inflected bare surname that is also a common noun (kowal = blacksmith), with no first name anchoring it anywhere in the document, is not detected even though the sentence has legal-adjacent context (ugoda = settlement)."
+  },
+  {
+    "id": "E1_address_with_anchor_label",
+    "category": "ADDRESS_NO_ANCHOR",
+    "known_gap": false,
+    "text": "Adres korespondencyjny: 39-200 Dębica, Pustynia 84F.",
+    "expect_masked": ["39-200", "Dębica", "Pustynia 84F"],
+    "expected_categories": ["ADDRESS"],
+    "note": "Regression guard for the RC34 reverse-order address fix (postcode+city, street+number) when preceded by an anchor label such as 'Adres korespondencyjny:'."
+  },
+  {
+    "id": "E2_address_no_anchor_label",
+    "category": "ADDRESS_NO_ANCHOR",
+    "known_gap": true,
+    "text": "Wysyłkę należy skierować na 39-200 Dębica, Pustynia 84F.",
+    "expect_masked": ["Pustynia 84F"],
+    "expected_categories": ["ADDRESS"],
+    "not_expected_categories": [],
+    "note": "The exact same reverse-order address pattern RC34 fixed, but without the 'Adres:'-style anchor label, only masks the postcode — city and street+number leak in full."
+  },
+  {
+    "id": "F1_checksum_valid_pesel_generic_wording",
+    "category": "CHECKSUM_ROBUSTNESS",
+    "known_gap": false,
+    "text": "Numer zamówienia to 44051401359 w systemie.",
+    "expect_masked": ["44051401359"],
+    "expected_categories": ["PESEL"],
+    "note": "Regression guard: a checksum-valid PESEL is masked regardless of surrounding wording, even phrasing ('numer zamowienia') that explicitly triggers the order-id exclusion for NIP-shaped numbers."
+  },
+  {
+    "id": "F2_nip_order_context_disambiguation",
+    "category": "CHECKSUM_ROBUSTNESS",
+    "known_gap": false,
+    "text": "Zlecenie numer 5260001246 zostało przyjęte do realizacji.",
+    "expect_masked": ["5260001246"],
+    "expected_categories": ["PROJECT_ID"],
+    "not_expected_categories": ["NIP"],
+    "note": "Regression guard: a NIP-shaped 10-digit number following order/zlecenie wording is correctly classified as PROJECT_ID, not NIP — the designed exhibit-number disambiguation still holds."
+  }
+]

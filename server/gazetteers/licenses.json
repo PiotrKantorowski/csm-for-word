@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-20",
+  "sources": [
+    {
+      "id": "pesel_first_names",
+      "name": "PESEL registry — first names (imiona), living persons",
+      "url": "https://dane.gov.pl/pl/dataset/1667",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "downloaded_at": "2026-01-20",
+      "bundled": true,
+      "allowed_for_runtime": true,
+      "inclusion_threshold": "occurrences >= 30",
+      "notes": "7,949 unique first names after deduplication and threshold filtering. Embedded in server/pl_gazetteers.py::FIRST_NAMES."
+    },
+    {
+      "id": "pesel_surnames",
+      "name": "PESEL registry — surnames (nazwiska), living persons, male and female forms",
+      "url": "https://dane.gov.pl/pl/dataset/1681",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "downloaded_at": "2026-01-20",
+      "bundled": true,
+      "allowed_for_runtime": true,
+      "inclusion_threshold": "occurrences >= 500",
+      "notes": "8,636 unique surnames after deduplication. Embedded in server/pl_gazetteers.py::SURNAMES."
+    },
+    {
+      "id": "teryt_localities",
+      "name": "Wykaz urzędowych nazw miejscowości i ich części (MSWiA / GUS TERYT SIMC)",
+      "url": "https://dane.gov.pl/pl/dataset/188",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "downloaded_at": "2026-01-20",
+      "bundled": true,
+      "allowed_for_runtime": true,
+      "notes": "69,984 locality names (nominative + genitive forms). All cities, deduplicated villages. Embedded in server/pl_gazetteers.py::LOCALITIES."
+    },
+    {
+      "id": "pl_legal_labels_negative",
+      "name": "CSM — hard-negative legal document labels (internal)",
+      "url": "internal",
+      "license": "proprietary",
+      "license_url": "internal",
+      "downloaded_at": "2026-05-20",
+      "bundled": true,
+      "allowed_for_runtime": true,
+      "notes": "~90 two-token Polish document section headings and form-field labels that must never be masked. Hand-authored from common contract and pleading templates. Stored in server/gazetteers/pl_legal_labels_negative.json."
+    },
+    {
+      "id": "pl_common_words_negative",
+      "name": "CSM — surnames that are also common Polish nouns (negative evidence sample)",
+      "url": "internal",
+      "license": "proprietary",
+      "license_url": "internal",
+      "downloaded_at": "2026-05-20",
+      "bundled": true,
+      "allowed_for_runtime": true,
+      "notes": "Sample of ~40 Polish words that are valid surnames but also common nouns (mucha, lis, wilk, etc.). Without legal context, these must not trigger PII masking. Stored in server/gazetteers/pl_common_words_negative.sample.json."
+    }
+  ],
+  "rejected_sources": [
+    {
+      "id": "ban_pl",
+      "name": "BAN-PL (Benchmark for Anonymization — Polish)",
+      "url": "https://arxiv.org/abs/2308.10592",
+      "license": "unknown",
+      "reason_rejected": "Dataset license not verified at integration time. Social-media corpus, not legal. Can be used for test inspiration only after license clarification.",
+      "bundled": false
+    },
+    {
+      "id": "pii_bench",
+      "name": "PIIBench",
+      "url": "https://arxiv.org/abs/2604.15776",
+      "license": "unknown",
+      "reason_rejected": "Not a Polish-primary corpus. Dataset license not verified. Used only as label-mapping inspiration.",
+      "bundled": false
+    },
+    {
+      "id": "poleval_2018_ner",
+      "name": "PolEval 2018 NER / Polish Proper Names",
+      "url": "https://arxiv.org/abs/1811.10418",
+      "license": "unknown",
+      "reason_rejected": "License of dataset not verified. Used only as architecture inspiration (NER strategy).",
+      "bundled": false
+    },
+    {
+      "id": "plwordnet",
+      "name": "PlWordNet / Słowosieć",
+      "url": "http://plwordnet.pwr.wroc.pl/",
+      "license": "unknown",
+      "reason_rejected": "License requires individual verification. The negative-evidence word list bundled here is hand-authored, not extracted from PlWordNet.",
+      "bundled": false
+    },
+    {
+      "id": "paranames",
+      "name": "ParaNames multilingual entity names",
+      "url": "https://github.com/bltlab/paranames",
+      "license": "unknown",
+      "reason_rejected": "Size and license not verified at integration time. Future candidate for ORG/LOC gazetteers after license review.",
+      "bundled": false
+    }
+  ]
+}

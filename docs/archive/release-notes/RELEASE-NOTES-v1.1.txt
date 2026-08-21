@@ -1,0 +1,73 @@
+CSM for Word v1.1 — Release Notes
+===================================
+
+Data wydania: 2026-06-08
+
+NOWE FUNKCJE
+------------
+
+1. Wybór trybu wdrożenia w kreatorze instalacji (VPS / lokalnie)
+   Instalator zawiera teraz dedykowaną stronę wyboru trybu wdrożenia
+   serwera CSM. Użytkownik może wybrać:
+     - Lokalnie (domyślnie) — bez zmian, serwer działa na komputerze użytkownika
+     - Hetzner Cloud (Niemcy, ~4,49 EUR/mies.) — automatyczny provisioning
+     - IONOS Cloud (Niemcy, ~9 EUR/mies.) — automatyczny provisioning
+     - Własny VPS — konfiguracja ręczna po instalacji
+
+2. Automatyczny provisioning VPS (tools/provision-vps.ps1)
+   Nowy skrypt provision-vps.ps1 umożliwia w pełni automatyczne
+   utworzenie serwera VPS u wybranego dostawcy na podstawie klucza API.
+   Skrypt wykonuje:
+     - tworzenie instancji przez REST API dostawcy (Hetzner / IONOS)
+     - konfigurację cloud-init (Python, Caddy, systemd)
+     - generowanie losowego CSM_API_TOKEN i CSM_MAP_ENCRYPTION_KEY
+     - upload katalogu server/ i addin/ przez SCP
+     - konfigurację HTTPS (Caddy + Let's Encrypt) i pliku .env
+     - automatyczne wywołanie write-vps-config.ps1 i build-vps-manifest.ps1
+   Wymaganie: domena wskazująca na IP serwera (rekord DNS A).
+
+3. Obsługiwani dostawcy VPS
+   Obaj dostawcy spełniają wymogi RODO i tajemnicy zawodowej:
+     - Hetzner Online GmbH (Niemcy) — ISO/IEC 27001:2022, BSI C5 Type 2,
+       prywatna spółka niemiecka, dane w UE, cloud-init natywny.
+       Regiony: Falkenstein (fsn1), Norymberga (nbg1), Helsinki (hel1).
+     - IONOS SE / United Internet AG (Niemcy) — ISO 27001, BSI C5,
+       dane w UE, pełne wsparcie cloud-init.
+       Regiony: Frankfurt (de), Paryż (fr).
+
+ZMIANY
+------
+
+4. install-csm.ps1 — nowe parametry VPS
+   Skrypt instalatora przyjmuje teraz opcjonalne parametry:
+     -VpsProvider (hetzner / ionos)
+     -VpsApiKey
+     -VpsDomain
+     -VpsRegion
+   Gdy parametry są podane (ustawiane automatycznie przez kreator Inno Setup),
+   po instalacji lokalnej uruchamiany jest provision-vps.ps1.
+
+5. VERSION.json — cloud_features: true
+   Pole cloud_features zmienione na true — odzwierciedla dostępność
+   trybu VPS w tej wersji.
+
+AKTUALIZACJA
+------------
+
+Aktualizacja z v1.0: pełna kompatybilność — istniejące sesje, mapy i
+konfiguracja lokalna są zachowane. Tryb VPS jest opcjonalny.
+
+WYMAGANIA (tryb VPS)
+--------------------
+- Klucz API Hetzner Cloud lub IONOS Cloud
+- Domena z możliwością konfiguracji DNS (rekord A)
+- OpenSSH klient (wbudowany w Windows 10/11)
+- Port 22 (SSH) dostępny do nowo utworzonego VPS
+
+WYMAGANIA (tryb lokalny — bez zmian)
+-------------------------------------
+- Windows 10/11 (64-bit)
+- Microsoft Word 2016 lub nowszy
+- Python 3.12 64-bit (instalowany automatycznie)
+- Ollama (instalowana automatycznie)
+- ~6 GB wolnego miejsca na dysku

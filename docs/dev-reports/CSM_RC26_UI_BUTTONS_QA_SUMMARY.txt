@@ -1,0 +1,29 @@
+CSM v0.6.1 rc26 - UI/UX correction and button feedback QA summary
+
+Scope:
+- Restored the manual rules panel as a visible standalone panel.
+- Kept the requested generic example: Jan Kowalski instead of Bernardeta Worosz/Wrzos.
+- Kept the step-by-step workflow panel removed from the visible UI; main document actions remain available through the large buttons.
+- Simplified advanced/help panels without hiding manual rules.
+- Improved service/repair button feedback so network/API failures are shown as user-facing instructions instead of looking like a broken panel.
+- Kept prior pseudonymization, autostart, and single-document workflow hardening from rc23/rc24/rc25.
+
+Important UX note:
+- Buttons inside the Word taskpane cannot start a Windows program if the local CSM API is completely down. In that case the panel now explains that the user must use the desktop/menu shortcut CSM - START, rather than failing silently or reporting a generic panel error.
+
+Targeted checks:
+- node --check addin/taskpane.js: OK
+- python3 -m py_compile server/api.py: OK
+- duplicate HTML id check: OK
+- UI regression tests: OK
+- autostart and single-document workflow regression tests: OK
+
+Release gate:
+Pass 1: 571 passed, 3 skipped, 0 failed
+Pass 2: 571 passed, 3 skipped, 0 failed
+
+Skipped tests:
+- 3 revision sidecar integration tests were skipped because CSM_REVISION_SIDECAR_CMD is not set in this Linux/container environment. They require a compiled Windows sidecar binary.
+
+Known limitation:
+- Real Word COM window-closing and taskpane behavior still requires live verification on Windows with desktop Microsoft Word.

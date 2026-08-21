@@ -1,0 +1,170 @@
+[
+  {
+    "id": "ext_initials_abbreviated",
+    "category": "PERSON",
+    "text": "W sprawie wystąpił J. Kowalski, reprezentowany przez pełnomocnika.",
+    "expect_masked": ["J. Kowalski"],
+    "expected_categories": ["PERSON"]
+  },
+  {
+    "id": "ext_diminutive_reference",
+    "category": "PERSON",
+    "text": "Powódka Katarzyna Zielińska, zwana dalej Kasią, złożyła wniosek. Kasia potwierdziła zeznania.",
+    "expect_masked": ["Katarzyna Zielińska", "Kasią", "Kasia"],
+    "expected_categories": ["PERSON"]
+  },
+  {
+    "id": "ext_two_same_surname_parties",
+    "category": "PERSON",
+    "text": "Powód Jan Kowalski oraz pozwana Anna Kowalska są rodzeństwem i występują w sprawie osobno.",
+    "expect_masked": ["Jan Kowalski", "Anna Kowalska"],
+    "expected_categories": ["PERSON"]
+  },
+  {
+    "id": "ext_double_surname_married",
+    "category": "PERSON",
+    "text": "Wnioskodawczyni Anna Kowalska-Nowak wniosła o zabezpieczenie roszczenia.",
+    "expect_masked": ["Anna Kowalska-Nowak"],
+    "expected_categories": ["PERSON"]
+  },
+  {
+    "id": "ext_foreign_name_western",
+    "category": "PERSON",
+    "text": "Świadek John Smith zeznał, że widział zdarzenie osobiście.",
+    "expect_masked": ["John Smith"],
+    "expected_categories": ["PERSON"]
+  },
+  {
+    "id": "ext_foreign_name_cyrillic_transliterated",
+    "category": "PERSON",
+    "text": "Pozwany Wołodymyr Kowalenko nie stawił się na rozprawę.",
+    "expect_masked": ["Wołodymyr Kowalenko"],
+    "expected_categories": ["PERSON"]
+  },
+  {
+    "id": "ext_ceidg_trade_name_person",
+    "category": "COMPANY",
+    "text": "Jan Kowalski, prowadzący działalność gospodarczą pod firmą JAN KOWALSKI USŁUGI BUDOWLANE, wniósł pozew.",
+    "expect_masked": ["Jan Kowalski", "JAN KOWALSKI USŁUGI BUDOWLANE"],
+    "expected_categories": ["PERSON", "COMPANY"]
+  },
+  {
+    "id": "ext_kgl_style_partnership_name",
+    "category": "COMPANY",
+    "text": "Pozwem objęto Kowalski, Nowak i Wspólnicy Sp.j. z siedzibą w Rzeszowie.",
+    "expect_masked": ["Kowalski, Nowak i Wspólnicy Sp.j."],
+    "expected_categories": ["COMPANY"]
+  },
+  {
+    "id": "ext_multi_party_three_defendants",
+    "category": "PERSON",
+    "text": "Pozwanymi solidarnie są: Adam Nowak, Piotr Wiśniewski oraz Marek Zieliński.",
+    "expect_masked": ["Adam Nowak", "Piotr Wiśniewski", "Marek Zieliński"],
+    "expected_categories": ["PERSON"]
+  },
+  {
+    "id": "ext_inflected_alias_across_document",
+    "category": "PERSON",
+    "text": "Dłużnikiem jest Michał Adam Nowacki. Wierzyciel wzywa Michała Adama Nowackiego do zapłaty. Postępowanie przeciwko Michałowi Adamowi Nowackiemu zostało wszczęte.",
+    "expect_masked": ["Michał Adam Nowacki", "Michała Adama Nowackiego", "Michałowi Adamowi Nowackiemu"],
+    "expected_categories": ["PERSON"]
+  },
+  {
+    "id": "ext_foreign_company_name",
+    "category": "COMPANY",
+    "text": "Powód zawarł umowę z Amazon EU Sarl z siedzibą w Luksemburgu.",
+    "expect_masked": ["Amazon EU Sarl"],
+    "expected_categories": ["COMPANY"]
+  },
+  {
+    "id": "ext_pphu_trade_form",
+    "category": "COMPANY",
+    "text": "Sprzedawcą jest P.P.H.U. \"KOWEX\" Jan Kowalski z siedzibą w Krośnie.",
+    "expect_masked": ["P.P.H.U. \"KOWEX\" Jan Kowalski"],
+    "expected_categories": ["COMPANY"]
+  },
+  {
+    "id": "ext_sp_z_oo_sp_k_full_form",
+    "category": "COMPANY",
+    "text": "Wykonawcą robót jest BUDMEX Spółka z ograniczoną odpowiedzialnością Spółka komandytowa.",
+    "expect_masked": ["BUDMEX Spółka z ograniczoną odpowiedzialnością Spółka komandytowa"],
+    "expected_categories": ["COMPANY"]
+  },
+  {
+    "id": "ext_address_apartment_abbrev",
+    "category": "ADDRESS",
+    "text": "Zamieszkały: ul. Krótka 5/12 m. 3, 35-100 Rzeszów.",
+    "expect_masked": ["ul. Krótka 5/12 m. 3, 35-100 Rzeszów"],
+    "expected_categories": ["ADDRESS"]
+  },
+  {
+    "id": "ext_foreign_iban",
+    "category": "BANK_ACCOUNT",
+    "text": "Płatność należy przekazać na rachunek DE89370400440532013000.",
+    "expect_masked": ["DE89370400440532013000"],
+    "expected_categories": ["IBAN"]
+  },
+  {
+    "id": "ext_phone_formats_varied",
+    "category": "INTERNET",
+    "text": "Kontakt: tel. 500-100-200, tel. kom. (17) 123 45 67, +48500100200.",
+    "expect_masked": ["500-100-200", "(17) 123 45 67", "+48500100200"],
+    "expected_categories": ["PHONE"]
+  },
+  {
+    "id": "ext_email_plus_addressing",
+    "category": "INTERNET",
+    "text": "Adres do doręczeń elektronicznych: jan.kowalski+sprawa123@kancelaria-example.pl.",
+    "expect_masked": ["jan.kowalski+sprawa123@kancelaria-example.pl"],
+    "expected_categories": ["EMAIL"]
+  },
+  {
+    "id": "ext_common_surname_word_false_positive",
+    "category": "PERSON",
+    "text": "Pan Kowal naprawił bramę. Zawód kowal jest dziś rzadkością.",
+    "expect_masked": ["Kowal"],
+    "expect_unmasked": ["kowal"],
+    "expected_categories": ["PERSON"]
+  },
+  {
+    "id": "ext_invalid_pesel_not_masked",
+    "category": "LEGAL_IDENTIFIERS",
+    "text": "Numer referencyjny zamówienia to 99999999999, co nie jest numerem PESEL.",
+    "not_expected_categories": ["PESEL"]
+  },
+  {
+    "id": "ext_notarial_deed_reference",
+    "category": "REAL_ESTATE_IDENTIFIER",
+    "text": "Akt notarialny Rep. A nr 4567/2026 sporządzony przed notariuszem Anną Wójcik.",
+    "expect_masked": ["Rep. A nr 4567/2026", "Anną Wójcik"],
+    "expected_categories": ["REPERTORIUM", "PERSON"]
+  },
+  {
+    "id": "ext_court_case_number_alt_format",
+    "category": "CASE_NUMBER",
+    "text": "sygn. akt II Ca 1234/26/3 przed Sądem Rejonowym w Dębicy.",
+    "expect_masked": ["II Ca 1234/26/3", "Sądem Rejonowym w Dębicy"],
+    "expected_categories": ["SYGNATURA", "COURT"]
+  },
+  {
+    "id": "ext_jdg_regon_context",
+    "category": "COMPANY",
+    "text": "Anna Nowak, NIP 5170000001, REGON 123123123, prowadząca działalność pod nazwą ANNA NOWAK STUDIO GRAFICZNE.",
+    "expect_masked": ["Anna Nowak", "5170000001", "123123123", "ANNA NOWAK STUDIO GRAFICZNE"],
+    "expected_categories": ["PERSON", "NIP", "REGON", "COMPANY"]
+  },
+  {
+    "id": "ext_role_heading_not_person",
+    "category": "PERSON",
+    "text": "PEŁNOMOCNIK\nZARZĄD\nWSPÓLNICY",
+    "expect_unmasked": ["PEŁNOMOCNIK", "ZARZĄD", "WSPÓLNICY"],
+    "not_expected_categories": ["PERSON"]
+  },
+  {
+    "id": "ext_name_at_sentence_start_ambiguous",
+    "category": "PERSON",
+    "text": "Nowak złożył apelację od wyroku Sądu Rejonowego.",
+    "expect_masked": ["Nowak"],
+    "expected_categories": ["PERSON"]
+  }
+]

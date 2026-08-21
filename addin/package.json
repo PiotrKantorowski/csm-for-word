@@ -1,0 +1,21 @@
+{
+  "name": "claude-safe-mode-word-addin",
+  "version": "1.6",
+  "private": true,
+  "scripts": {
+    "start": "office-addin-debugging start manifest.xml desktop --app word",
+    "stop": "office-addin-debugging stop manifest.xml",
+    "dev-server": "office-addin-dev-certs install && powershell -NoProfile -ExecutionPolicy Bypass -Command \"npx http-server . -S -C $env:USERPROFILE\\.office-addin-dev-certs\\localhost.crt -K $env:USERPROFILE\\.office-addin-dev-certs\\localhost.key -p 3000\"",
+    "lint": "node scripts/validate-static.js",
+    "build": "node scripts/validate-static.js --build",
+    "test": "python ../tests/run_pytest.py"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "office-addin-debugging": "^6.1.1",
+    "office-addin-dev-certs": "^2.0.9"
+  },
+  "overrides": {
+    "protobufjs": "^8.6.5"
+  }
+}

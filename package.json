@@ -1,0 +1,11 @@
+{
+  "name": "csm-for-word",
+  "version": "1.6",
+  "private": true,
+  "description": "CSM for Word distribution-level validation scripts.",
+  "scripts": {
+    "lint": "node addin/scripts/validate-static.js",
+    "build": "node addin/scripts/validate-static.js --build",
+    "test": "python tests/run_pytest.py"
+  }
+}

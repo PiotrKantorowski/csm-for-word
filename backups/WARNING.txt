@@ -1,0 +1,6 @@
+Ten katalog jest przeznaczony na lokalne, awaryjne kopie przywracania CSM.
+
+Nie wysylaj jego zawartosci do chmury, repozytorium ani do wsparcia bez
+uprzedniego sprawdzenia, czy nie zawiera danych objetych tajemnica zawodowa
+lub danych osobowych. W paczce zrodlowej powinien znajdowac sie tylko ten
+plik ostrzegawczy.

@@ -1,0 +1,1844 @@
+{
+  "name": "CSM public legal pseudonymization benchmark",
+  "version": "2026-07-04-rc30",
+  "description": "Benchmark built from public legal-form structures and synthetic PII. It contains no client documents and no real professional-confidential documents.",
+  "sources": {
+    "gov_vehicle_sale_pdf": {
+      "description": "Gov.pl public vehicle-sale contract form: party data, REGON/NIP/PESEL, representative, vehicle identifiers and bank account clauses.",
+      "url": "https://www.gov.pl/attachment/1de13e93-b0bc-4214-a780-bf32d9154517"
+    },
+    "senat_commercial_lease_doc": {
+      "description": "Senat public commercial lease / sublease template: parties, representatives, premises, rent, delivery protocol.",
+      "url": "https://www.senat.gov.pl/gfx/senat/userfiles/_public/bss/wzory/29_umowa_najmu_podnajmu_lokalu_uzytkowego.doc"
+    },
+    "gov_commercial_lease_attachment": {
+      "description": "Gov.pl public commercial lease template: tenant/landlord clauses, premises, addresses and representatives.",
+      "url": "https://www.gov.pl/attachment/aef63d8c-1fa0-4891-9770-956926af1742"
+    },
+    "so_warszawa_response_to_claim_doc": {
+      "description": "SO Warszawa BIP public response-to-claim form: party and attorney fields, court and case reference context.",
+      "url": "https://bip.warszawa.so.gov.pl/uploads/files/migration/mstoleczne/boi/wzory_i_formularze/OP%20formularz%20%20-%20odpowiedz%20na%20pozew.doc"
+    },
+    "gov_power_of_attorney_attachment": {
+      "description": "Gov.pl public power-of-attorney forms: principal, attorney, relationship and signature contexts.",
+      "url": "https://www.gov.pl/attachment/0b0203e3-aad9-4d14-a0ec-9e453171f50c"
+    },
+    "synthetic_public_pattern_extension": {
+      "description": "Synthetic extension based on public-form structures; no client data or real case file data included.",
+      "url": null
+    }
+  },
+  "cases": [
+    {
+      "id": "prof_rep_01",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozwana spółka była reprezentowana przez r.pr. Jana Kowalskiego, który wniósł odpowiedź na pozew.",
+      "must_mask": [
+        "Jana Kowalskiego"
+      ],
+      "must_keep": [
+        "odpowiedź na pozew",
+        "Pozwana spółka była reprezentowana przez"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "prof_rep_02",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozwana spółka była reprezentowana przez radca prawny Piotr Geltner, który wniósł odpowiedź na pozew.",
+      "must_mask": [
+        "Piotr Geltner"
+      ],
+      "must_keep": [
+        "odpowiedź na pozew",
+        "Pozwana spółka była reprezentowana przez"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "prof_rep_03",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozwana spółka była reprezentowana przez radcę prawnego Katarzynę Krajewską-Ulitę, który wniósł odpowiedź na pozew.",
+      "must_mask": [
+        "Katarzynę Krajewską-Ulitę"
+      ],
+      "must_keep": [
+        "odpowiedź na pozew",
+        "Pozwana spółka była reprezentowana przez"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "prof_rep_04",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozwana spółka była reprezentowana przez adw. Michała Adama Nowackiego, który wniósł odpowiedź na pozew.",
+      "must_mask": [
+        "Michała Adama Nowackiego"
+      ],
+      "must_keep": [
+        "odpowiedź na pozew",
+        "Pozwana spółka była reprezentowana przez"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "prof_rep_05",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozwana spółka była reprezentowana przez adwokat Julia Maria Król, który wniósł odpowiedź na pozew.",
+      "must_mask": [
+        "Julia Maria Król"
+      ],
+      "must_keep": [
+        "odpowiedź na pozew",
+        "Pozwana spółka była reprezentowana przez"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "prof_rep_06",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozwana spółka była reprezentowana przez notariusz Ewa Malinowska, który wniósł odpowiedź na pozew.",
+      "must_mask": [
+        "Ewa Malinowska"
+      ],
+      "must_keep": [
+        "odpowiedź na pozew",
+        "Pozwana spółka była reprezentowana przez"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "prof_rep_07",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozwana spółka była reprezentowana przez notariusza Pawła Marka Lisa, który wniósł odpowiedź na pozew.",
+      "must_mask": [
+        "Pawła Marka Lisa"
+      ],
+      "must_keep": [
+        "odpowiedź na pozew",
+        "Pozwana spółka była reprezentowana przez"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "prof_rep_08",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozwana spółka była reprezentowana przez komornik Anna Żuchowska-Czernia, który wniósł odpowiedź na pozew.",
+      "must_mask": [
+        "Anna Żuchowska-Czernia"
+      ],
+      "must_keep": [
+        "odpowiedź na pozew",
+        "Pozwana spółka była reprezentowana przez"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "prof_rep_09",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozwana spółka była reprezentowana przez pełnomocnik Jan Kowalski, który wniósł odpowiedź na pozew.",
+      "must_mask": [
+        "Jan Kowalski"
+      ],
+      "must_keep": [
+        "odpowiedź na pozew",
+        "Pozwana spółka była reprezentowana przez"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "prof_rep_10",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozwana spółka była reprezentowana przez prokurent Piotr Geltner, który wniósł odpowiedź na pozew.",
+      "must_mask": [
+        "Piotr Geltner"
+      ],
+      "must_keep": [
+        "odpowiedź na pozew",
+        "Pozwana spółka była reprezentowana przez"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "person_role_01",
+      "profile": "pleadings",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Powód Piotr Geltner, PESEL 90010112345, wnosi o zasądzenie należności.",
+      "must_mask": [
+        "Piotr Geltner",
+        "90010112345"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "person_role_02",
+      "profile": "pleadings",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Pozwanego Katarzynę Krajewską-Ulitę, zamieszkałego w Pustyni, reprezentuje pełnomocnik.",
+      "must_mask": [
+        "Katarzynę Krajewską-Ulitę",
+        "Pustyni"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "person_role_03",
+      "profile": "pleadings",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Wnioskodawczyni Michał Adam Nowacki, ur. 1.02.1980 r. w Rzeszowie, złożyła wniosek.",
+      "must_mask": [
+        "Michał Adam Nowacki",
+        "1.02.1980",
+        "Rzeszowie"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "person_role_04",
+      "profile": "pleadings",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Świadkiem był Julia Maria Król, zamieszkały przy ul. Prostej 1 w Warszawie.",
+      "must_mask": [
+        "Julia Maria Król",
+        "ul. Prostej 1",
+        "Warszawie"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "person_role_05",
+      "profile": "pleadings",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Biegły sądowy Ewa Malinowska, tel. +48 600 700 800, przesłał opinię.",
+      "must_mask": [
+        "Ewa Malinowska",
+        "+48 600 700 800"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "person_role_06",
+      "profile": "pleadings",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Pełnomocnikiem był radca prawny Paweł Marek Lis.",
+      "must_mask": [
+        "Paweł Marek Lis"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "person_role_07",
+      "profile": "pleadings",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Oświadczenie podpisała Pani Anna Żuchowska-Czernia.",
+      "must_mask": [
+        "Anna Żuchowska-Czernia"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "person_role_08",
+      "profile": "pleadings",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Przez Jan Kowalski został podpisany protokół odbioru.",
+      "must_mask": [
+        "Jan Kowalski"
+      ],
+      "must_keep": [
+        "protokół odbioru"
+      ],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "person_role_09",
+      "profile": "pleadings",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Działającą wspólnie z mężem Piotra Geltnera, na zasadzie wspólności ustawowej.",
+      "must_mask": [
+        "Piotra Geltnera"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "person_role_10",
+      "profile": "pleadings",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Poprzednio Katarzyna Krajewska-Ulita, obecnie Michał Adam Nowacki, składa oświadczenie.",
+      "must_mask": [
+        "Katarzyna Krajewska-Ulita",
+        "Michał Adam Nowacki"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "company_party_01",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Wynajmujący: NOVUS Sp. z o.o. z siedzibą w Krakowie, zwany dalej NOVUS. NOVUS oddaje lokal Najemcy.",
+      "must_mask": [
+        "NOVUS Sp. z o.o.",
+        "NOVUS"
+      ],
+      "must_keep": [
+        "Wynajmujący",
+        "oddaje lokal Najemcy"
+      ],
+      "expected_categories": [
+        "COMPANY",
+        "COMPANY_ALIAS"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "company_party_02",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Wynajmujący: MÜLLER & Söhne GmbH z siedzibą w Krakowie, zwany dalej MÜLLER. MÜLLER oddaje lokal Najemcy.",
+      "must_mask": [
+        "MÜLLER & Söhne GmbH",
+        "MÜLLER"
+      ],
+      "must_keep": [
+        "Wynajmujący",
+        "oddaje lokal Najemcy"
+      ],
+      "expected_categories": [
+        "COMPANY",
+        "COMPANY_ALIAS"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "company_party_03",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Wynajmujący: KOWEX Spółka jawna z siedzibą w Krakowie, zwany dalej KOWEX. KOWEX oddaje lokal Najemcy.",
+      "must_mask": [
+        "KOWEX Spółka jawna",
+        "KOWEX"
+      ],
+      "must_keep": [
+        "Wynajmujący",
+        "oddaje lokal Najemcy"
+      ],
+      "expected_categories": [
+        "COMPANY",
+        "COMPANY_ALIAS"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "company_party_04",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Wynajmujący: OLIMP LABORATORIES sp. z o.o. z siedzibą w Krakowie, zwany dalej OLIMP. OLIMP oddaje lokal Najemcy.",
+      "must_mask": [
+        "OLIMP LABORATORIES sp. z o.o.",
+        "OLIMP"
+      ],
+      "must_keep": [
+        "Wynajmujący",
+        "oddaje lokal Najemcy"
+      ],
+      "expected_categories": [
+        "COMPANY",
+        "COMPANY_ALIAS"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "company_party_05",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Wynajmujący: FENIX S.A. z siedzibą w Krakowie, zwany dalej FENIX. FENIX oddaje lokal Najemcy.",
+      "must_mask": [
+        "FENIX S.A.",
+        "FENIX"
+      ],
+      "must_keep": [
+        "Wynajmujący",
+        "oddaje lokal Najemcy"
+      ],
+      "expected_categories": [
+        "COMPANY",
+        "COMPANY_ALIAS"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "jdg_01",
+      "profile": "contracts",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Przedsiębiorca: Jan Kowalski Software, ul. Prosta 1, 00-001 Warszawa.",
+      "must_mask": [
+        "Jan Kowalski Software",
+        "ul. Prosta 1",
+        "00-001 Warszawa"
+      ],
+      "must_keep": [
+        "Przedsiębiorca"
+      ],
+      "expected_categories": [
+        "CONTRACTOR"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "jdg_02",
+      "profile": "contracts",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Firma przedsiębiorcy: AMZ Consulting Anna Maria Zielińska, NIP 1234567890.",
+      "must_mask": [
+        "AMZ Consulting Anna Maria Zielińska",
+        "1234567890",
+        "123456789"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "CONTRACTOR"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "jdg_03",
+      "profile": "contracts",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Adam Nowak prowadzący działalność gospodarczą pod firmą Adam Nowak Omnitex, REGON 123456789.",
+      "must_mask": [
+        "Adam Nowak Omnitex",
+        "123456789"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "CONTRACTOR"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "jdg_04",
+      "profile": "contracts",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Osoba fizyczna prowadząca działalność gospodarczą: Julia Maria Król LegalTech, PESEL 90010112345.",
+      "must_mask": [
+        "Julia Maria Król LegalTech",
+        "90010112345"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "CONTRACTOR"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "jdg_05",
+      "profile": "contracts",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "pod firmą Paweł Marek Lis Doradztwo, rachunek bankowy PL 12 3456 7890 1234 5678 9012 3456.",
+      "must_mask": [
+        "Paweł Marek Lis Doradztwo",
+        "3456 7890 1234 5678 9012 3456"
+      ],
+      "must_keep": [
+        "rachunek bankowy"
+      ],
+      "expected_categories": [
+        "CONTRACTOR"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "identifiers_01",
+      "profile": "contracts",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "PESEL 90010112345, NIP 1234567890, REGON 123456789, KRS 0000123456.",
+      "must_mask": [
+        "90010112345",
+        "1234567890",
+        "123456789",
+        "0000123456"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "identifiers_02",
+      "profile": "contracts",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "legitymującą się dowodem osobistym seria AXN nr 584219.",
+      "must_mask": [
+        "AXN",
+        "584219"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "identifiers_03",
+      "profile": "contracts",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "Paszport nr AB1234567 został okazany przy podpisaniu umowy.",
+      "must_mask": [
+        "AB1234567"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "identifiers_04",
+      "profile": "contracts",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "Numer klienta: KLIENT-2025-000123 oraz numer kadrowy EMP-2024-0001.",
+      "must_mask": [
+        "KLIENT-2025-000123",
+        "EMP-2024-0001"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "identifiers_05",
+      "profile": "contracts",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "VAT UE: DE123456789, NIP UE: PL1234567890.",
+      "must_mask": [
+        "DE123456789",
+        "PL1234567890"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "identifiers_06",
+      "profile": "contracts",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "e-mail: anna.kowalska@example.pl, domena: kancelaria-testowa.pl.",
+      "must_mask": [
+        "anna.kowalska@example.pl",
+        "kancelaria-testowa.pl"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "identifiers_07",
+      "profile": "contracts",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "Repozytorium github.com/kancelaria/projekt-klienta oraz token sk-proj-abcdefghijklmnop123456.",
+      "must_mask": [
+        "github.com/kancelaria/projekt-klienta",
+        "sk-proj-abcdefghijklmnop123456"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "identifiers_08",
+      "profile": "contracts",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "Nr rachunku: 12 3456 7890 1234 5678 9012 3456.",
+      "must_mask": [
+        "3456 7890 1234 5678 9012 3456"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "property_vehicle_01",
+      "profile": "notarial",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "Dla nieruchomości prowadzona jest księga wieczysta WA1M/12345678/9.",
+      "must_mask": [
+        "WA1M/12345678/9"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PROPERTY_ID",
+        "VEHICLE_ID"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "property_vehicle_02",
+      "profile": "notarial",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "Przedmiotem umowy jest działka nr 123/45 położona w obrębie 0001.",
+      "must_mask": [
+        "123/45",
+        "0001"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PROPERTY_ID",
+        "VEHICLE_ID"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "property_vehicle_03",
+      "profile": "notarial",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "Identyfikator działki: 146501_8.0001.123/45.",
+      "must_mask": [
+        "146501_8.0001.123/45"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PROPERTY_ID",
+        "VEHICLE_ID"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "property_vehicle_04",
+      "profile": "notarial",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "Akt notarialny Rep. A nr 1234/2025 sporządzony w Warszawie.",
+      "must_mask": [
+        "Rep. A nr 1234/2025"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PROPERTY_ID",
+        "VEHICLE_ID"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "property_vehicle_05",
+      "profile": "notarial",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "Pojazd ma VIN WBA12345678901234 i nr rejestracyjny RZ 12345.",
+      "must_mask": [
+        "WBA12345678901234",
+        "RZ 12345"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PROPERTY_ID",
+        "VEHICLE_ID"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "property_vehicle_06",
+      "profile": "notarial",
+      "public_source_pattern": "gov_vehicle_sale_pdf",
+      "input": "Numer silnika AB123456 oraz nr nadwozia XYZ987654321.",
+      "must_mask": [
+        "AB123456",
+        "XYZ987654321"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PROPERTY_ID",
+        "VEHICLE_ID"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "court_01",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Sąd Rejonowy dla m.st. Warszawy rozpoznał sprawę. SR dla m.st. Warszawy oddalił wniosek.",
+      "must_mask": [
+        "Sąd Rejonowy dla m.st. Warszawy",
+        "SR dla m.st. Warszawy"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "COURT",
+        "CASE_REF"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "court_02",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Sądem Okręgowym w Rzeszowie kierowała sprawa o sygn. I C 123/25.",
+      "must_mask": [
+        "Sądem Okręgowym w Rzeszowie",
+        "I C 123/25"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "COURT",
+        "CASE_REF"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "court_03",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Sygn. akt VIII GC 1234/25 została wskazana w odpowiedzi na pozew.",
+      "must_mask": [
+        "VIII GC 1234/25"
+      ],
+      "must_keep": [
+        "odpowiedzi na pozew"
+      ],
+      "expected_categories": [
+        "COURT",
+        "CASE_REF"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "court_04",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Komornik przy Sądzie Rejonowym w Dębicy Jan Kowalski prowadzi Km 123/25.",
+      "must_mask": [
+        "Sądzie Rejonowym w Dębicy",
+        "Jan Kowalski",
+        "Km 123/25"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "COURT",
+        "CASE_REF"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "court_05",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Notariusz Anna Maria Kowalska-Szulc sporządziła akt.",
+      "must_mask": [
+        "Anna Maria Kowalska-Szulc"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "COURT",
+        "CASE_REF"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "address_01",
+      "profile": "contracts",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "Adres do korespondencji: 00-001 Warszawa, ul. Prosta 1.",
+      "must_mask": [
+        "00-001 Warszawa",
+        "ul. Prosta 1"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "ADDRESS"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "address_02",
+      "profile": "contracts",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "zamieszkały w Pustyni, przy ul. Długiej 5/7.",
+      "must_mask": [
+        "Pustyni",
+        "ul. Długiej 5/7"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "ADDRESS"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "address_03",
+      "profile": "contracts",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "z siedzibą w Białymstoku, ul. Lipowa 10.",
+      "must_mask": [
+        "Białymstoku",
+        "ul. Lipowa 10"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "ADDRESS"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "address_04",
+      "profile": "contracts",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "skrytka pocztowa 24, 37-700 Przemyśl 1.",
+      "must_mask": [
+        "skrytka pocztowa",
+        "37-700",
+        "Przemyśl"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "ADDRESS"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "address_05",
+      "profile": "contracts",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "Adres ePUAP: /KOWALSKI/skrytka, e-Doręczenia: AE:PL-12345-67890-ABCDE-12.",
+      "must_mask": [
+        "/KOWALSKI/skrytka",
+        "AE:PL-12345-67890-ABCDE-12"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "ADDRESS"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_01",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "UMOWA NAJMU LOKALU UŻYTKOWEGO pozostaje tytułem dokumentu.",
+      "must_mask": [],
+      "must_keep": [
+        "UMOWA NAJMU LOKALU UŻYTKOWEGO pozostaje tytułem dokumentu."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_02",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Kodeks Cywilny przewiduje skutki formy pisemnej.",
+      "must_mask": [],
+      "must_keep": [
+        "Kodeks Cywilny przewiduje skutki formy pisemnej."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_03",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Ogólne Warunki Umowy nie są nazwiskiem strony.",
+      "must_mask": [],
+      "must_keep": [
+        "Ogólne Warunki Umowy nie są nazwiskiem strony."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_04",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Projekt Zlecenia zostanie przekazany do akceptacji.",
+      "must_mask": [],
+      "must_keep": [
+        "Projekt Zlecenia zostanie przekazany do akceptacji."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_05",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Niniejszą umowę sporządzono w dwóch jednobrzmiących egzemplarzach.",
+      "must_mask": [],
+      "must_keep": [
+        "Niniejszą umowę sporządzono w dwóch jednobrzmiących egzemplarzach."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_06",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Kupujący i Sprzedający są dalej zwani Stronami.",
+      "must_mask": [],
+      "must_keep": [
+        "Kupujący i Sprzedający są dalej zwani Stronami."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_07",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Załącznik nr 1 stanowi protokół zdawczo-odbiorczy.",
+      "must_mask": [],
+      "must_keep": [
+        "Załącznik nr 1 stanowi protokół zdawczo-odbiorczy."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_08",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Kwota czynszu wynosi 1 000,00 zł netto miesięcznie.",
+      "must_mask": [],
+      "must_keep": [
+        "Kwota czynszu wynosi 1 000,00 zł netto miesięcznie."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_09",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Art. 471 Kodeksu cywilnego dotyczy odpowiedzialności kontraktowej.",
+      "must_mask": [],
+      "must_keep": [
+        "Art. 471 Kodeksu cywilnego dotyczy odpowiedzialności kontraktowej."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_10",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Rada Gminy podjęła uchwałę w sprawie regulaminu.",
+      "must_mask": [],
+      "must_keep": [
+        "Rada Gminy podjęła uchwałę w sprawie regulaminu."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_11",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "System CRM ERP SaaS jest opisany jako przedmiot wdrożenia.",
+      "must_mask": [],
+      "must_keep": [
+        "System CRM ERP SaaS jest opisany jako przedmiot wdrożenia."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_12",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Druga Strona może wypowiedzieć umowę z zachowaniem terminu.",
+      "must_mask": [],
+      "must_keep": [
+        "Druga Strona może wypowiedzieć umowę z zachowaniem terminu."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_13",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Rozprawa odbyła się w Warszawie i była jawna.",
+      "must_mask": [],
+      "must_keep": [
+        "Rozprawa odbyła się w Warszawie i była jawna."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_14",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Mucha była w pokoju, a nie w aktach sprawy.",
+      "must_mask": [],
+      "must_keep": [
+        "Mucha była w pokoju, a nie w aktach sprawy."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_15",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Pustynia jest miejscowością wymienioną w przykładzie ogólnym.",
+      "must_mask": [],
+      "must_keep": [
+        "Pustynia jest miejscowością wymienioną w przykładzie ogólnym."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_16",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Prezes Zarządu podpisał dokument w imieniu spółki.",
+      "must_mask": [],
+      "must_keep": [
+        "Prezes Zarządu podpisał dokument w imieniu spółki."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_17",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "W sprawach nieuregulowanych stosuje się przepisy prawa.",
+      "must_mask": [],
+      "must_keep": [
+        "W sprawach nieuregulowanych stosuje się przepisy prawa."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_18",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Do odpowiedzi na pozew należy dołączyć odpisy załączników.",
+      "must_mask": [],
+      "must_keep": [
+        "Do odpowiedzi na pozew należy dołączyć odpisy załączników."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_19",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Numer paragrafu 1.2.3 nie jest identyfikatorem sprawy.",
+      "must_mask": [],
+      "must_keep": [
+        "Numer paragrafu 1.2.3 nie jest identyfikatorem sprawy."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_20",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Formularz OP jest wzorem pisma procesowego.",
+      "must_mask": [],
+      "must_keep": [
+        "Formularz OP jest wzorem pisma procesowego."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "table_contract_01",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Zamawiający - reprezentacjaMichał Adam Nowacki, Prezes Zarządu, PESEL testowy 77021500000",
+      "must_mask": [
+        "Michał Adam Nowacki",
+        "77021500000"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "TABLE"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "table_contract_02",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Osoba kontaktowa do spraw rozliczeń:Paweł Marek Lis, e-mail: lis@example.pl",
+      "must_mask": [
+        "Paweł Marek Lis",
+        "lis@example.pl"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "TABLE"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "table_contract_03",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Wykonawca - zastępstwo awaryjneMarta Joanna Wrona, konsultantka procesowa",
+      "must_mask": [
+        "Marta Joanna Wrona"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "TABLE"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "table_contract_04",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Dane reprezentantaKatarzyna Krajewska-Ulita, Członek Zarządu",
+      "must_mask": [
+        "Katarzyna Krajewska-Ulita"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "TABLE"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "table_contract_05",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Dokument tożsamościdowód osobisty seria DAP nr 742913",
+      "must_mask": [
+        "DAP",
+        "742913"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "TABLE"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "table_contract_06",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Data i miejsce urodzenia23 kwietnia 1988 r., Jarosław",
+      "must_mask": [
+        "23 kwietnia",
+        "Jarosław"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "TABLE"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "table_contract_07",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Imiona rodzicówEwa i Tomasz",
+      "must_mask": [
+        "Ewa",
+        "Tomasz"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "TABLE"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "table_contract_08",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Nazwisko rodoweWójcik",
+      "must_mask": [
+        "Wójcik"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "TABLE"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "table_contract_09",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Adres do doręczeńul. Długa 7, 35-001 Rzeszów",
+      "must_mask": [
+        "ul. Długa 7",
+        "35-001",
+        "Rzeszów"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "TABLE"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "table_contract_10",
+      "profile": "contracts",
+      "public_source_pattern": "senat_commercial_lease_doc",
+      "input": "Numer umowyNOVUS/OMNITEX/B2B/05/2026/FIK",
+      "must_mask": [
+        "NOVUS",
+        "OMNITEX"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "TABLE"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "power_attorney_01",
+      "profile": "power_of_attorney",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "Mocodawca Jan Kowalski udziela pełnomocnictwa Annie Nowak.",
+      "must_mask": [
+        "Jan Kowalski",
+        "Annie Nowak"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "power_attorney_02",
+      "profile": "power_of_attorney",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "Pełnomocnik: Piotr Geltner, adres: ul. Krótka 5, 00-002 Warszawa.",
+      "must_mask": [
+        "Piotr Geltner",
+        "ul. Krótka 5",
+        "00-002 Warszawa"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "power_attorney_03",
+      "profile": "power_of_attorney",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "Wyznaczona osoba pozostaje ze mną w stosunku pokrewieństwa: Małgorzata Kowalska.",
+      "must_mask": [
+        "Małgorzata Kowalska"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "power_attorney_04",
+      "profile": "power_of_attorney",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "Podpis Mocodawcy: Janina Mucha.",
+      "must_mask": [
+        "Janina Mucha"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "power_attorney_05",
+      "profile": "power_of_attorney",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "a Pełnomocnik niniejsze pełnomocnictwo przyjmuje: Adam Pustynia.",
+      "must_mask": [
+        "Adam Pustynia"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "power_attorney_06",
+      "profile": "power_of_attorney",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "pełnomocnikiem do doręczeń jest adw. Julia Maria Król.",
+      "must_mask": [
+        "Julia Maria Król"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "power_attorney_07",
+      "profile": "power_of_attorney",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "pełnomocnika substytucyjnego r.pr. Macieja Grzebieniowskiego ustanowiono w sprawie.",
+      "must_mask": [
+        "Macieja Grzebieniowskiego"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "power_attorney_08",
+      "profile": "power_of_attorney",
+      "public_source_pattern": "gov_power_of_attorney_attachment",
+      "input": "osoba upoważniona: Anna Żuchowska-Czernia, tel. 600 111 222.",
+      "must_mask": [
+        "Anna Żuchowska-Czernia",
+        "600 111 222"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "pleading_more_01",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pozew wniósł adwokat Dariusz Duślak w imieniu powódki.",
+      "must_mask": [
+        "Dariusz Duślak"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "pleading_more_02",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Odpowiedź na pozew podpisała radczyni prawna Alicja Wolicka.",
+      "must_mask": [
+        "Alicja Wolicka"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "pleading_more_03",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Interwenient uboczny Anna Kopera zgłosiła przystąpienie.",
+      "must_mask": [
+        "Anna Kopera"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "pleading_more_04",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Uczestnik postępowania Radosław Domański wskazał adres do doręczeń.",
+      "must_mask": [
+        "Radosław Domański"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "pleading_more_05",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Pokrzywdzony Kamil Przybyło złożył zeznania.",
+      "must_mask": [
+        "Kamil Przybyło"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "pleading_more_06",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Oskarżony Ryszard Stysło nie stawił się na terminie.",
+      "must_mask": [
+        "Ryszard Stysło"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "pleading_more_07",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Mediator Gertruda Biruś-Marszałek zaproponowała ugodę.",
+      "must_mask": [
+        "Gertruda Biruś-Marszałek"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "pleading_more_08",
+      "profile": "pleadings",
+      "public_source_pattern": "so_warszawa_response_to_claim_doc",
+      "input": "Tłumacz przysięgły Monika Żyła sporządziła tłumaczenie.",
+      "must_mask": [
+        "Monika Żyła"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "PERSON"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "tech_ids_more_01",
+      "profile": "technical_legal",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Zamawiający korzysta z portalu klient-novus.example.pl oraz loginu jkowalski.",
+      "must_mask": [
+        "klient-novus.example.pl",
+        "jkowalski"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "tech_ids_more_02",
+      "profile": "technical_legal",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Numer zamówienia ZAM-2026-000123 przekazano do faktury FV/15/06/2026.",
+      "must_mask": [
+        "ZAM-2026-000123",
+        "FV/15/06/2026"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "tech_ids_more_03",
+      "profile": "technical_legal",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Nr BDO 000123456 wskazano w danych spółki.",
+      "must_mask": [
+        "000123456"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "tech_ids_more_04",
+      "profile": "technical_legal",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Numer CEIDG: 12345678-1234-1234-1234-123456789012.",
+      "must_mask": [
+        "12345678-1234-1234-1234-123456789012"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "tech_ids_more_05",
+      "profile": "technical_legal",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Decyzja nr AB.6740.123.2026 dotyczy działki nr 88/2.",
+      "must_mask": [
+        "AB.6740.123.2026",
+        "88/2"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "tech_ids_more_06",
+      "profile": "technical_legal",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Polisa OC nr POL/2026/123456 i szkoda SZK/2026/9988.",
+      "must_mask": [
+        "POL/2026/123456",
+        "SZK/2026/9988"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "tech_ids_more_07",
+      "profile": "technical_legal",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Przesyłka INPOST 123456789012345678901234 oraz list polecony 00059007731234567890.",
+      "must_mask": [
+        "123456789012345678901234",
+        "00059007731234567890"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "tech_ids_more_08",
+      "profile": "technical_legal",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "API endpoint https://api.klient.example.pl/v1/sprawy/123 zawiera identyfikator sprawy.",
+      "must_mask": [
+        "https://api.klient.example.pl/v1/sprawy/123"
+      ],
+      "must_keep": [],
+      "expected_categories": [
+        "IDENTIFIER"
+      ],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_extra_01",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Pełnomocnictwo jako tytuł dokumentu nie zawiera danych osobowych.",
+      "must_mask": [],
+      "must_keep": [
+        "Pełnomocnictwo jako tytuł dokumentu nie zawiera danych osobowych."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_extra_02",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Najemca zobowiązuje się do utrzymania lokalu w należytym stanie.",
+      "must_mask": [],
+      "must_keep": [
+        "Najemca zobowiązuje się do utrzymania lokalu w należytym stanie."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_extra_03",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Wynajmujący ubezpiecza przedmiot najmu oraz opłaca ciężary publicznoprawne.",
+      "must_mask": [],
+      "must_keep": [
+        "Wynajmujący ubezpiecza przedmiot najmu oraz opłaca ciężary publicznoprawne."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_extra_04",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Powództwo wzajemne jest instytucją procesową, nie nazwą strony.",
+      "must_mask": [],
+      "must_keep": [
+        "Powództwo wzajemne jest instytucją procesową, nie nazwą strony."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_extra_05",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Odpowiedź na pozew powinna zawierać stanowisko pozwanego.",
+      "must_mask": [],
+      "must_keep": [
+        "Odpowiedź na pozew powinna zawierać stanowisko pozwanego."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_extra_06",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Sąd jako instytucja wymiaru sprawiedliwości działa na podstawie ustaw.",
+      "must_mask": [],
+      "must_keep": [
+        "Sąd jako instytucja wymiaru sprawiedliwości działa na podstawie ustaw."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_extra_07",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Przelew na rachunek bankowy nastąpi po odbiorze przedmiotu umowy.",
+      "must_mask": [],
+      "must_keep": [
+        "Przelew na rachunek bankowy nastąpi po odbiorze przedmiotu umowy."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    },
+    {
+      "id": "false_positive_extra_08",
+      "profile": "false_positive",
+      "public_source_pattern": "synthetic_public_pattern_extension",
+      "input": "Konsultant procesowy to opis funkcji, nie identyfikator osoby.",
+      "must_mask": [],
+      "must_keep": [
+        "Konsultant procesowy to opis funkcji, nie identyfikator osoby."
+      ],
+      "expected_categories": [],
+      "roundtrip_required": true,
+      "note": ""
+    }
+  ]
+}

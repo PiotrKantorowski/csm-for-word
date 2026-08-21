@@ -1,0 +1,7 @@
+{
+  "map_retention_days": 30,
+  "snapshot_retention_days": 30,
+  "audit_log_retention_days": 90,
+  "max_text_bytes": 2000000,
+  "max_docx_xml_bytes": 50000000
+}

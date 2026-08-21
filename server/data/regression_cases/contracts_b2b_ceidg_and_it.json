@@ -1,0 +1,24 @@
+{
+  "name": "contracts_b2b_ceidg_and_it",
+  "description": "Regression snippets for Polish legal anonymization in B2B/CEIDG contracts and IT implementation contracts.",
+  "cases": [
+    {
+      "id": "id-card-inflected-series-nr",
+      "input": "legitymującą się dowodem osobistym seria AXN nr 584219 oraz dowodem osobistym seria DAP nr 742913",
+      "must_not_contain": ["AXN", "584219", "DAP", "742913"],
+      "must_contain": ["[IDCARD_PL_"]
+    },
+    {
+      "id": "ceidg-table-fields",
+      "input": "Numer umowy KGL/AMZ/B2B/05/2026/FIK\nFirma przedsiębiorcy AMZ Consulting Anna Maria Zielińska\nAdres do doręczeń skrytka pocztowa 24, 37-700 Przemyśl 1\nData i miejsce urodzenia 23 kwietnia 1988 r., Jarosław\nImiona rodziców Ewa i Tomasz\nNazwisko rodowe Wójcik",
+      "must_not_contain": ["KGL", "AMZ", "Anna", "Zielińska", "skrytka pocztowa", "Przemyśl", "Jarosław", "Wójcik"],
+      "must_contain": ["B2B/05/2026/FIK"]
+    },
+    {
+      "id": "sole-proprietor-it-contract",
+      "input": "Adamem Nowakiem prowadzącym działalność gospodarczą pod firmą Adam Nowak Omnitex, legitymującym się dowodem osobistym seria DAP nr 742913, zwanym dalej Omnitex. Ewa Malinowska - Prezes Zarządu.",
+      "must_not_contain": ["Adam", "Nowak", "Omnitex", "Ewa", "Malinowska", "DAP", "742913"],
+      "must_contain": ["Prezes Zarządu"]
+    }
+  ]
+}

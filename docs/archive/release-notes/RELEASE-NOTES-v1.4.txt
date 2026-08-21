@@ -1,0 +1,47 @@
+CSM for Word v1.4 — Release Notes
+
+CSM for Word v1.0 pozostaje bazą produkcyjną tej linii wydania. Wersja v1.4
+domyka wykryte luki w rozpoznawaniu danych, porządkuje panel własnych reguł
+ukrywania danych i naprawia oznaczenie produktu w licencji PDF. Zasady powrotu
+do wersji jawnej nie zostały zmienione.
+
+Najważniejsze zmiany
+
+1. Domknięte luki w wykrywaniu danych (silnik pseudonimizacji).
+   - Firmy jednoosobowe w naturalnym sformułowaniu "prowadzący/prowadząca
+     działalność pod firmą/nazwą X" — nazwa firmy jest teraz ukrywana
+     (wcześniej zostawała jawna).
+   - Firmy z prefiksem P.P.H.U., F.H.U., P.H.U. oraz PPUH — wcześniej nie były
+     wykrywane, teraz są.
+   - Inicjał z nazwiskiem, np. "J. Kowalski" — wcześniej pomijane, teraz ukrywane.
+   - Zagraniczne numery IBAN spoza Polski wg normy ISO 13616 — wcześniej
+     rozpoznawany był tylko polski NRB.
+   - Nazwa sądu w formie odmienionej, np. "Sądem Rejonowym w X" — wcześniej
+     rozpoznawany był tylko mianownik.
+
+2. Czytelny panel "Własne reguły ukrywania danych".
+   - Reguła zmiany kategorii ("Zmień typ") jest widoczna jako czytelna pozycja
+     na liście, z możliwością usunięcia pojedynczej reguły (wcześniej była
+     zapisywana w całkowicie ukrytym polu).
+   - Okna tekstowe przy "Zmień typ" i "Scal z..." zastąpiono listami wyboru,
+     co eliminuje literówki i wybór nieistniejącego placeholdera.
+   - Import i eksport reguł w formacie TXT przeniesiono do sekcji zaawansowanej
+     bez zmiany działania.
+
+3. Poprawione oznaczenie produktu w licencji.
+   - Plik LICENSE.pdf odtworzono z aktualnej treści LICENSE.txt. Poprzednia
+     wersja PDF nosiła starą nazwę produktu "Claude Safe Mode for Word", mimo
+     że reszta dystrybucji używa nazwy "CSM for Word".
+
+4. Spójne oznaczenie wydania.
+   Panel dodatku, manifest, instalator, pliki pakietu i instrukcje użytkownika
+   są oznaczone jako CSM for Word v1.4.
+
+Uwagi operacyjne
+
+- Reguły ręczne i raporty anonimizacji pozostają zapisywane lokalnie.
+- Mechanizm przywracania wersji jawnej nie został zmieniony.
+- Tryby kontroli anonimizacji z v1.3 działają bez zmian: analiza Bielik pozostaje
+  opcjonalna i uruchamiana wyłącznie na świadome żądanie użytkownika.
+- Nowe wzorce wykrywania warto zweryfikować na dokumentach z firmami
+  jednoosobowymi, prefiksami handlowymi i rachunkami zagranicznymi.

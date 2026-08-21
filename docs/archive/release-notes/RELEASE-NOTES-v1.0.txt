@@ -1,0 +1,39 @@
+CSM for Word v1.0
+
+Status wydania
+- v1.0 to pierwsze stabilne wydanie produkcyjne CSM dla kancelarii i zespołów prawniczych.
+- Wersja 1.0 zamyka linię 0.x i wprowadza automatyczną analizę kontekstową AI przez Bielik.
+
+Najważniejsze zmiany w v1.0
+
+1. Automatyczna integracja z Bielik AI (Ollama)
+- instalator automatycznie instaluje Ollama i pobiera model Bielik-Minitron-7B (~4 GB);
+- Bielik uruchamia się przy każdym starcie CSM — bez ręcznej konfiguracji;
+- zielony/czerwony indicator "Bielik ON / Bielik OFF" widoczny w nagłówku panelu;
+- wyniki Bielika (kategoria BIELIK_PII) są widoczne w mapowaniach i raporcie anonimizacji;
+- endpoint /health zwraca status Bielika (bielik_enabled, bielik_reachable).
+
+2. Zachowanie śledzenia zmian w dokumentach Word
+- pełna integracja z programem pomocniczym .NET 8 zachowującym historię zmian;
+- bezpieczna walidacja wyniku i proaktywne zamykanie pliku przed restore.
+
+3. Bezpieczeństwo i lokalność
+- wszystkie dane przetwarzane lokalnie — reguły, mapowania, dokumenty, model AI;
+- endpoint /health z nową sekcją nlp (bielik_enabled, bielik_reachable);
+- audit log zawiera llm_findings_count — licznik encji wykrytych przez Bielika.
+
+4. Instalacja jednym kliknięciem
+- ZAINSTALUJ_CSM.cmd instaluje Python, Ollama, model Bielik i konfiguruje Word;
+- przy każdym logowaniu CSM i Ollama startują automatycznie w tle.
+
+5. Interfejs i UX
+- nagłówek panelu zawiera stały indicator "Bielik ON / OFF" (zielony/czerwony);
+- uproszczono komunikaty diagnostyczne;
+- profil dokumentu widoczny w panelu i raporcie.
+
+Wymagania
+- Windows 10/11 (64-bit)
+- Microsoft Word 2016 lub nowszy
+- Python 3.12 64-bit (instalowany automatycznie)
+- Ollama (instalowana automatycznie)
+- ~6 GB wolnego miejsca na dysku (Python + Ollama + model Bielik)

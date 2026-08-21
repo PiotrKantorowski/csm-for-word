@@ -1,0 +1,22 @@
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+  categories:
+    - title: Funkcje
+      labels:
+        - feature
+        - enhancement
+    - title: Poprawki jakości i bezpieczeństwa
+      labels:
+        - bug
+        - security
+        - quality
+    - title: Dokumentacja
+      labels:
+        - documentation
+    - title: Zmiany wewnętrzne
+      labels:
+        - chore
+        - refactor
+        - ci

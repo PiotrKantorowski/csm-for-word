@@ -1,0 +1,15 @@
+CSM v0.4.1.1
+===============
+
+Mały polish release po v0.4.1.
+
+Zmiany:
+- doprecyzowano wersjonowanie aplikacji, manifestu, panelu Word i dokumentacji;
+- dodano w panelu Word przyciski: „Kopiuj raport anonimizacji” oraz „Pobierz raport JSON”;
+- główny tryb DOCX pokazuje i zapisuje raport anonimizacji po prepare;
+- odpowiedzi API v4/current/prepare i v4/current/restore zawierają ścieżki do report_prepare.json i report_restore.json;
+- README i README-EASY-START opisują, jak czytać raport anonimizacji;
+- zachowano wszystkie poprawki v0.4.1 oraz wcześniejsze poprawki instalatora i anonimizacji.
+
+Wsparcie:
+Jeśli coś nie działa, napisz na csm@kancelariakantorowski.pl - pomoże nam to rozwiązać Twój problem.

@@ -1,0 +1,66 @@
+# CSM runtime and generated artifacts
+.venv/
+node_modules/
+__pycache__/
+.pytest_cache/
+*.pyc
+.DS_Store
+npm-audit*.json
+
+# Local runtime state
+backups/20*/
+sessions/
+maps/
+logs/
+runtime/backups/*
+runtime/sessions/*
+!runtime/backups/.keep
+!runtime/sessions/.keep
+
+# Installer output
+installer/output/
+*.exe
+
+# Python/package/build outputs
+build/
+dist/
+*.egg-info/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.cache/
+.tox/
+.nox/
+
+# Node/npm logs and coverage
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+coverage/
+.nyc_output/
+
+# Local secrets and machine-specific config
+.env
+.env.*
+*.local
+
+# Editor and OS metadata
+.vscode/
+.idea/
+Thumbs.db
+
+# Local install/runtime leftovers (this folder doubles as an install target)
+unins000.exe
+unins000.dat
+.license-accepted
+.claude/settings.local.json
+
+# Emergency restore copies — may contain client data (see backups/WARNING.txt)
+backups/*
+!backups/WARNING.txt
+
+# Local API token shared between the Word add-in and the local server.
+# Regenerated on every START by tools/start-claude-safe-mode.ps1.
+addin/csm-token.js

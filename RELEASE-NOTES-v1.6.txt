@@ -1,0 +1,56 @@
+CSM for Word v1.6 — Release Notes
+
+CSM for Word v1.0 pozostaje bazą produkcyjną tej linii wydania. Wersja v1.6
+przebudowuje ręczne reguły ukrywania danych tak, aby pomagały zamiast
+przeszkadzać: bezpieczniejsze dopasowanie, odmiana przez przypadki, podgląd
+skutków przed zastosowaniem, reguły zapisywane dla klienta i kancelarii oraz
+rozliczalność każdej reguły po anonimizacji. Mechanizm przywracania wersji
+jawnej nie został zmieniony.
+
+Najważniejsze zmiany
+
+1. Bezpieczniejsze dopasowanie reguł ręcznych.
+   - Frazy reguł są dopasowywane w granicach słów (reguła "Ala" nie zmienia już
+     słowa "otrzymała") i bez rozróżniania wielkości liter.
+   - Reguła "nie ukrywaj" wyłącza wykrycie tylko wtedy, gdy obejmuje je w
+     całości. Krótka fraza nie może przypadkiem odsłonić dłuższego numeru.
+   - Dane zweryfikowane sumą kontrolną (PESEL, NIP, REGON, IBAN, dowód,
+     paszport) nie są odsłaniane przez zwykłą regułę "nie ukrywaj". Świadome
+     odsłonięcie wymaga reguły wymuszonej (prefiks "!" w panelu). Próba bez
+     wymuszenia jest raportowana ostrzeżeniem.
+
+2. Reguły rozumieją polską odmianę.
+   Reguła "zawsze ukrywaj" z kategorią OSOBA, FIRMA lub SAD obejmuje odmiany
+   przez przypadki i trafia do tej samej rodziny placeholderów co wykrycia
+   automatyczne (np. [OSOBA_3] zamiast osobnego [MANUAL_1]). Mniej ręcznego
+   scalania placeholderów.
+
+3. Podgląd skutków reguł przed zastosowaniem.
+   Nowy przycisk pokazuje, ile wystąpień doda każda reguła "zawsze" (wraz z
+   odmianami), które wykrycia wyłączy każda reguła "nigdy" (z fragmentem
+   kontekstu) oraz reguły bez efektu — zanim powstanie nowa kopia. Podgląd
+   działa wyłącznie lokalnie i nie zmienia żadnych plików.
+
+4. Reguły zapisane dla klienta i kancelarii.
+   Reguły można zapisać na stałe na trzech poziomach: sesja (jak dotąd),
+   klient/sprawa oraz cała kancelaria. Zapisane reguły są automatycznie
+   dołączane przy każdej anonimizacji i przechowywane lokalnie w postaci
+   zaszyfrowanej, tak jak mapy pseudonimizacji.
+
+5. Rozliczalność reguł.
+   Po każdej anonimizacji panel i raport report_prepare.json pokazują, ile
+   dopasowań miała każda reguła, które wykrycia zostały wyłączone i które
+   reguły nie zadziałały w tym dokumencie (martwe reguły do przeglądu).
+
+6. Okno "wątpliwe elementy" połączone z regułami.
+   Zaznaczone elementy można jednym kliknięciem zapisać także jako stałe
+   reguły klienta.
+
+Uwagi operacyjne
+
+- Reguły ręczne i raporty anonimizacji pozostają zapisywane lokalnie.
+- Mechanizm przywracania wersji jawnej nie został zmieniony.
+- Tryby kontroli anonimizacji z v1.3 działają bez zmian: analiza Bielik
+  pozostaje opcjonalna i uruchamiana wyłącznie na świadome żądanie użytkownika.
+- Zmiany jakości detekcji z v1.4 i v1.5 (wykrywanie ukrytych błędów jakości,
+  suma kontrolna PESEL, prefiltr aliasów) pozostają aktywne bez zmian.

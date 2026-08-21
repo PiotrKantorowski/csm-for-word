@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "description": "Sample of Polish first names for documentation and testing. The full runtime gazetteer is embedded in server/pl_gazetteers.py::FIRST_NAMES (7,949 entries). This sample exists for illustration and test fixture purposes.",
+  "source_ref": "pesel_first_names",
+  "generated_at": "2026-05-20",
+  "entries": [
+    "Adam", "Agnieszka", "Aleksander", "Aleksandra", "Anna", "Barbara",
+    "Bartosz", "Beata", "Celina", "Dariusz", "Dorota", "Ewa",
+    "Filip", "Grzegorz", "Hanna", "Irena", "Jacek", "Jan",
+    "Joanna", "Katarzyna", "Krzysztof", "Leszek", "Łukasz", "Magdalena",
+    "Marek", "Maria", "Michał", "Monika", "Natalia", "Paweł",
+    "Piotr", "Robert", "Stanisław", "Szymon", "Tomasz", "Urszula",
+    "Wiesław", "Wojciech", "Zofia", "Zygmunt"
+  ]
+}

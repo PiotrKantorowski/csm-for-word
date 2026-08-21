@@ -1,0 +1,14 @@
+CSM v0.4.2.3
+Data: 2026-05-16
+
+Zakres:
+- release stabilizujący po pierwszym udanym buildzie CSM-Setup.exe;
+- ujednolicono wersję aplikacji, manifestu Word, panelu, API, instalatora i testów do 0.4.2.3;
+- doprecyzowano raport anonimizacji o sekcje kontrolne dla rachunków bankowych oraz obrazów / elementów nietekstowych;
+- dodano regresyjne testy raportowania BANK_ACCOUNT i obrazów bez ujawniania surowych danych;
+- dodano checklistę testów Windows dla instalatora EXE;
+- pozostawiono bez zmian licencję i model dystrybucji;
+- nie rozwijano w tej wersji Word Online — ten kierunek pozostaje późniejszym POC.
+
+Uwaga:
+- CSM-Setup.exe należy budować na Windowsie przez Inno Setup albo przez workflow GitHub Actions na windows-latest.

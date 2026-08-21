@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSM</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #5b6475;
+      --line: #e5e7eb;
+      --soft: #f6f7fb;
+      --soft2: #eef2ff;
+      --primary: #111827;
+      --primary2: #263246;
+      --green-bg: #ecfdf3;
+      --green: #166534;
+      --amber-bg: #fff7ed;
+      --amber: #92400e;
+      --red-bg: #fee2e2;
+      --red: #991b1b;
+      --blue-bg: #eff6ff;
+      --blue: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; color: var(--ink); background: #fff; }
+    .app { padding: 16px; }
+    .header { display:flex; gap:10px; align-items:center; margin-bottom: 14px; }
+    .logo { width: 38px; height: 38px; border-radius: 12px; background: var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; }
+    h1 { font-size: 18px; margin:0; line-height:1.15; }
+    .version { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    p { font-size: 13px; line-height: 1.45; margin: 8px 0; }
+    .card { border:1px solid var(--line); background:#fff; border-radius: 16px; padding: 14px; margin: 12px 0; box-shadow: 0 1px 2px rgba(17,24,39,.04); }
+    .card.soft { background: var(--soft); }
+    .state { display:flex; align-items:center; gap:10px; }
+    .dot { width:11px; height:11px; border-radius:99px; background:#9ca3af; flex:none; }
+    .dot.ready { background:#16a34a; }
+    .dot.warn { background:#f59e0b; }
+    .dot.danger { background:#dc2626; }
+    .dot.busy { background:#f59e0b; animation: dotPulse 1s ease-in-out infinite; box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+    @keyframes dotPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); transform: scale(1); }
+      50%  { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); transform: scale(1.25); }
+      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); transform: scale(1); }
+    }
+    .state-title { font-weight:750; font-size:14px; }
+    .state-desc { font-size:12px; color:var(--muted); margin-top:2px; }
+    .steps { display:grid; grid-template-columns: 1fr; gap:8px; margin-top: 12px; }
+    .step { display:flex; gap:10px; align-items:flex-start; padding:10px; border:1px solid var(--line); border-radius: 12px; background:#fff; }
+    .step.clickable { cursor:pointer; }
+    .step.clickable:hover { border-color:#111827; background:#f9fafb; }
+    .step.disabled { opacity:.48; cursor:not-allowed; }
+    .step.disabled:hover { border-color:var(--line); background:#fff; }
+    .primary-actions { border:1px solid var(--line); background:#fff; border-radius:16px; padding:14px; margin:12px 0; box-shadow:0 1px 2px rgba(17,24,39,.04); }
+    .primary-actions-title { font-size:13px; font-weight:800; margin-bottom:4px; }
+    .primary-actions-desc { font-size:12px; color:var(--muted); margin-bottom:10px; line-height:1.35; }
+    .step-num { width:24px; height:24px; border-radius:50%; background:#e5e7eb; color:#374151; display:flex; justify-content:center; align-items:center; font-size:12px; font-weight:800; flex:none; }
+    .step.done .step-num { background:#dcfce7; color:#166534; }
+    .step.active { border-color:#111827; background:#f9fafb; }
+    .step.active .step-num { background:#111827; color:#fff; }
+    .step-title { font-weight:700; font-size:13px; }
+    .step-text { color:var(--muted); font-size:12px; line-height:1.35; margin-top:1px; }
+    button { width: 100%; border: 0; border-radius: 12px; padding: 12px 12px; margin: 7px 0; cursor: pointer; font-weight: 750; font-size: 13px; transition: transform .08s ease, filter .12s ease, box-shadow .12s ease; }
+    button:hover:not(:disabled) { filter: brightness(0.97); }
+    button:active:not(:disabled) { transform: scale(0.97); filter: brightness(0.9); }
+    button.is-pressing { transform: scale(0.97); filter: brightness(0.85); box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    .primary { background: var(--primary); color: white; }
+    .primary:hover { background: var(--primary2); }
+    .secondary { background: #e5e7eb; color: #111827; }
+    .danger { background: var(--red-bg); color: var(--red); }
+    .ghost { background: transparent; border:1px solid var(--line); color:var(--ink); }
+    .button-row { display:grid; grid-template-columns: 1fr; gap:0; }
+    .negotiation-actions { display:grid; grid-template-columns: 1fr; gap:0; }
+    .action-cell { min-width: 0; }
+    .badge { display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:4px 8px; font-size:11px; font-weight:700; margin:2px 4px 2px 0; }
+    .badge.green { background:var(--green-bg); color:var(--green); }
+    .badge.amber { background:var(--amber-bg); color:var(--amber); }
+    .badge.blue { background:var(--blue-bg); color:var(--blue); }
+    .badge.red { background:var(--red-bg); color:var(--red); }
+    .summary-grid { display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-top:10px; }
+    .metric { background:var(--soft); border-radius:12px; padding:10px; }
+    .metric-value { font-size:18px; font-weight:850; }
+    .metric-label { font-size:11px; color:var(--muted); }
+    .notice { border-radius: 12px; padding: 10px; font-size: 12px; line-height: 1.4; white-space: pre-wrap; }
+    .notice.warn { background:var(--amber-bg); color:#78350f; }
+    .notice.good { background:var(--green-bg); color:#14532d; }
+    .notice.info { background:var(--blue-bg); color:#1e3a8a; }
+    .notice.danger { background:var(--red-bg); color:#7f1d1d; }
+    .bielik-badge { font-size:11px; font-weight:600; border-radius:999px; padding:2px 8px; display:inline-block; }
+    .bielik-badge.bielik-unknown { display:none; }
+    .bielik-badge.bielik-on { background:var(--green-bg); color:var(--green); }
+    .bielik-badge.bielik-off { background:var(--soft); color:var(--muted); }
+    .bielik-badge.bielik-warn { background:var(--amber-bg); color:#78350f; }
+    .bielik-indicator { display:flex; align-items:center; gap:2px; font-size:11px; font-weight:700; margin-left:auto; padding:3px 9px; border-radius:999px; white-space:nowrap; flex-shrink:0; }
+    .bielik-indicator.bielik-checking { background:var(--soft); color:var(--muted); }
+    .bielik-indicator.bielik-on { background:var(--green-bg); color:var(--green); }
+    .bielik-indicator.bielik-off { background:var(--red-bg); color:#b91c1c; }
+    .review-mode-panel { margin-top:10px; border:1px solid var(--line); border-radius:8px; padding:9px; background:#fff; }
+    .review-mode-row { display:flex; align-items:flex-start; gap:8px; font-size:12px; color:var(--ink); }
+    .review-mode-row input { margin-top:2px; flex:0 0 auto; }
+    .review-mode-hint { margin:4px 0 0 24px; font-size:11px; color:var(--muted); line-height:1.35; }
+    .bielik-action-row { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+    .csm-header { display:flex; align-items:center; gap:8px; flex-wrap:nowrap; }
+    details { margin-top: 10px; }
+    summary { cursor:pointer; font-size:12px; color:var(--muted); font-weight:700; }
+    .license-details { margin-top:14px; border-top:1px solid var(--line); padding-top:10px; }
+    .license-box { font-size:11px; line-height:1.35; color:var(--muted); background:#f9fafb; border:1px solid var(--line); border-radius:12px; padding:10px; margin-top:8px; }
+    .license-box p { font-size:11px; margin:6px 0; }
+    .status { white-space: pre-wrap; font-size: 12px; background: #f3f4f6; padding: 10px; border-radius: 10px; min-height: 44px; margin-top:10px; }
+
+    .uncertain-modal { position:fixed; inset:0; background:rgba(15,23,42,.42); z-index:9999; display:flex; align-items:center; justify-content:center; padding:14px; }
+    .uncertain-box { width:min(560px,100%); max-height:86vh; overflow:auto; background:#fff; border-radius:16px; border:1px solid var(--line); box-shadow:0 20px 60px rgba(15,23,42,.28); padding:14px; }
+    .uncertain-title { font-weight:850; font-size:14px; margin-bottom:4px; }
+    .uncertain-hint { font-size:12px; line-height:1.38; color:var(--muted); margin-bottom:10px; }
+    .uncertain-list { display:grid; gap:8px; margin:10px 0; }
+    .uncertain-item { display:grid; grid-template-columns:22px 1fr; gap:8px; padding:9px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+    .uncertain-item input { margin-top:3px; }
+    .uncertain-value { font-weight:800; font-size:12px; color:var(--ink); word-break:break-word; }
+    .uncertain-meta { font-size:11px; color:var(--muted); margin-top:2px; }
+    .uncertain-context { font-size:11px; color:#374151; background:#f9fafb; border-radius:8px; padding:6px; margin-top:5px; word-break:break-word; }
+    .uncertain-actions { display:grid; grid-template-columns:1fr; gap:0; margin-top:10px; }
+    .uncertain-inline-button { margin-top:8px; }
+
+    .hidden { display:none !important; }
+    .small { font-size: 12px; color:var(--muted); }
+    .spinner { display:inline-block; width:12px; height:12px; border:2px solid #cbd5e1; border-top-color:#111827; border-radius:50%; animation: spin 1s linear infinite; vertical-align:-2px; margin-right:5px; }
+
+    .version-check-card { border:1px solid var(--line); border-radius:16px; padding:10px 12px; background:#fff; margin-bottom:10px; box-shadow: 0 1px 2px rgba(17,24,39,.04); }
+    .version-check-link { display:block; width:100%; text-align:center; text-decoration:none; border-radius:12px; padding:10px 12px; background:var(--primary); color:#fff; font-weight:850; font-size:13px; }
+    .version-check-link:hover { background:var(--primary2); }
+    .version-check-link:focus-visible { outline:2px solid #f97316; outline-offset:2px; }
+    .brand-panel { border:1px solid var(--line); border-radius:16px; padding:8px 10px; background:#fff; margin:10px 0; box-shadow: 0 1px 2px rgba(17,24,39,.04); }
+    .support-card { border:1px solid #fecaca; border-radius:16px; padding:10px 12px; background:#fff7f7; color:#7f1d1d; margin:10px 0; font-size:12px; line-height:1.4; }
+    .support-card strong { color:#991b1b; }
+    .support-card a { color:#991b1b; font-weight:800; text-decoration:none; }
+    .support-card a:hover { text-decoration:underline; }
+    .brand-link { display:block; text-decoration:none; border-radius:10px; padding:4px 6px; border:1px solid transparent; transition: background .15s ease, border-color .15s ease; }
+    .brand-link:hover { background:var(--soft); border-color:var(--line); }
+    .brand-link:focus-visible { outline:2px solid #f97316; outline-offset:2px; }
+    .brand-logo-csm { display:block; width:100%; max-height:42px; object-fit:contain; object-position:left center; }
+
+    /* ── Top header ─────────────────────────────────────────────────── */
+    .csm-header { display:flex; align-items:center; justify-content:space-between; padding:12px 0 10px; margin-bottom:10px; border-bottom:1px solid var(--line); }
+    .csm-header-logo { height:32px; display:block; object-fit:contain; }
+    .csm-header-meta { display:flex; flex-direction:column; align-items:flex-end; gap:2px; }
+    .csm-header-version { font-size:11px; font-weight:700; color:var(--muted); letter-spacing:.04em; }
+    .csm-update-link { font-size:11px; color:#2563eb; text-decoration:none; font-weight:600; }
+    .csm-update-link:hover { text-decoration:underline; }
+
+    /* ── Profile selector ────────────────────────────────────────────── */
+    .profile-selector { margin:0 0 12px; }
+    .profile-selector label { display:block; font-size:11px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:5px; }
+    .profile-selector select { width:100%; border:1px solid var(--line); border-radius:10px; padding:8px 10px; font-size:12px; background:#fff; color:var(--ink); cursor:pointer; }
+    .profile-selector select:focus { outline:2px solid #2563eb; outline-offset:1px; }
+
+    /* ── Step connector ──────────────────────────────────────────────── */
+    .step-connector { text-align:center; font-size:11px; color:var(--muted); padding:4px 0; margin:0; line-height:1; user-select:none; }
+    .technical-rules { margin-top:10px; border-top:1px dashed var(--line); padding-top:10px; }
+    .technical-rules textarea { width:100%; border:1px solid var(--line); border-radius:10px; padding:8px; font-size:12px; box-sizing:border-box; }
+    .rule-group { margin:10px 0; }
+    .rule-group-title { font-size:12px; margin-bottom:4px; }
+    .rule-list { display:flex; flex-direction:column; gap:5px; }
+    .rule-list:empty::before { content: attr(data-empty); display:block; font-size:11px; color:var(--muted); font-style:italic; padding:6px 2px; }
+    .rule-row { display:flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:10px; padding:6px 8px; background:#fff; }
+    .rule-row-text { flex:1; min-width:0; font-size:12px; line-height:1.3; word-break:break-word; }
+    .rule-row-text .rule-arrow { color:var(--muted); margin:0 4px; }
+    .rule-row-text .rule-cat { font-weight:800; color:#374151; }
+    .rule-row-remove { flex:none; width:auto; margin:0; padding:5px 10px; font-size:11px; font-weight:700; border:1px solid var(--line); border-radius:8px; background:transparent; color:var(--red); }
+    .rule-row-remove:hover:not(:disabled) { background:var(--red-bg); }
+    .rule-advanced { margin-top:12px; border-top:1px dashed var(--line); padding-top:6px; }
+    .rule-picker { position:fixed; inset:0; background:rgba(17,24,39,.42); display:flex; align-items:center; justify-content:center; z-index:1000; padding:16px; }
+    .rule-picker-box { background:#fff; border-radius:16px; padding:16px; width:100%; max-width:340px; box-shadow:0 10px 30px rgba(17,24,39,.2); }
+    .rule-picker-title { font-weight:850; font-size:14px; margin-bottom:4px; }
+    .rule-picker-hint { font-size:12px; color:var(--muted); line-height:1.35; margin-bottom:8px; word-break:break-word; }
+    .rule-picker-select, .rule-picker-custom { width:100%; border:1px solid var(--line); border-radius:10px; padding:8px 10px; font-size:13px; background:#fff; color:var(--ink); box-sizing:border-box; }
+    .rule-picker-custom { margin-top:8px; }
+    .build-badge { margin-top:6px; color:#6b7280; font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
+    .app-title-row { display:flex; align-items:center; gap:10px; margin-top:10px; }
+    .progress-card { display:flex; align-items:center; gap:10px; }
+    .progress-spinner { width:22px; height:22px; border:3px solid #d1d5db; border-top-color:#111827; border-radius:50%; animation: spin 0.9s linear infinite; flex:none; }
+    .progress-title { font-weight:800; font-size:13px; }
+    .progress-text { font-size:12px; color:var(--muted); margin-top:2px; line-height:1.35; }
+    .progress-bar-wrap { background:#e5e7eb; border-radius:8px; height:6px; margin:10px 0 2px; overflow:hidden; }
+    .progress-bar { height:100%; background:#111827; border-radius:8px; width:0%; transition:width 0.18s linear; }
+    .progress-footer { display:flex; justify-content:space-between; align-items:center; margin-top:2px; }
+    .progress-pct { font-size:12px; font-weight:800; color:#374151; }
+    .progress-eta { font-size:11px; color:var(--muted); }
+    .negotiation-card { border-color:#c7d2fe; background:linear-gradient(180deg,#f8fafc 0%,#ffffff 100%); }
+    .negotiation-title { font-size:15px; font-weight:900; margin-bottom:4px; letter-spacing:-.01em; }
+    .negotiation-desc { font-size:12px; color:var(--muted); line-height:1.45; margin-bottom:10px; }
+    .negotiation-hint { font-size:11px; color:#475569; background:#eef2ff; border:1px solid #dbeafe; border-radius:12px; padding:9px 10px; margin:8px 0 10px; line-height:1.35; }
+    .button-caption { font-size:11px; color:var(--muted); line-height:1.35; margin:2px 0 8px; }
+    .legacy-card { border-style:dashed; }
+    .download-link { display:block; text-align:center; text-decoration:none; border-radius:12px; padding:10px 12px; margin:7px 0; background:#ecfdf3; color:#166534; font-weight:800; font-size:13px; }
+    .file-input { width:100%; font-size:12px; margin:8px 0; }
+    .manual-restore { margin-top:10px; border-top:1px dashed var(--line); padding-top:10px; }
+    .manual-restore-title { font-size:12px; font-weight:850; margin-bottom:4px; }
+    .manual-restore-hint { font-size:11px; color:var(--muted); line-height:1.35; margin:4px 0 8px; }
+
+    .friendly-summary { font-size:13px; color:var(--ink); font-weight:850; padding:4px 2px; }
+    details.card > summary { font-size:13px; color:var(--ink); font-weight:850; }
+    .panel-help { font-size:12px; color:var(--muted); line-height:1.45; margin:8px 0 10px; }
+    .field-help { display:block; font-size:11px; color:var(--muted); line-height:1.35; margin:3px 0 6px; }
+
+    /* ── Quality banner ──────────────────────────────────────────────── */
+    .quality-banner { display:flex; align-items:center; gap:10px; border-radius:14px; padding:10px 12px; margin:10px 0 6px; }
+    .quality-banner.green { background:var(--green-bg); }
+    .quality-banner.amber { background:var(--amber-bg); }
+    .quality-banner.red   { background:var(--red-bg); }
+    .quality-dot { width:14px; height:14px; border-radius:50%; flex:none; }
+    .quality-banner.green .quality-dot { background:#16a34a; }
+    .quality-banner.amber .quality-dot { background:#d97706; }
+    .quality-banner.red   .quality-dot { background:#dc2626; }
+    .quality-text { flex:1; font-size:12px; font-weight:700; line-height:1.3; }
+    .quality-banner.green .quality-text { color:#14532d; }
+    .quality-banner.amber .quality-text { color:#78350f; }
+    .quality-banner.red   .quality-text { color:#7f1d1d; }
+    .quality-toggle { width:auto; padding:5px 10px; margin:0; font-size:11px; font-weight:700; border-radius:8px; background:rgba(0,0,0,.07); border:0; color:inherit; cursor:pointer; white-space:nowrap; }
+    .quality-panel { border-radius:12px; padding:10px 12px; background:#f9fafb; border:1px solid var(--line); margin-bottom:8px; font-size:12px; line-height:1.5; }
+    .quality-section { margin-bottom:8px; }
+    .quality-section:last-child { margin-bottom:0; }
+    .quality-section-title { font-weight:800; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin-bottom:4px; }
+    .quality-item { padding:3px 0; padding-left:12px; position:relative; color:#374151; }
+    .quality-item::before { content:"•"; position:absolute; left:2px; color:var(--muted); }
+    .quality-item.risk { color:#92400e; }
+    .quality-item.risk::before { content:"⚠"; left:0; font-size:10px; }
+    .quality-ok { color:#166534; font-size:12px; }
+    .divider { border:0; border-top:1px solid var(--line); margin:10px 0; }
+
+    @media (min-width: 640px) {
+      .app { padding: 18px; }
+      .negotiation-actions { grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+      .button-caption { margin-bottom: 0; }
+      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ── Nagłówek z logo ── -->
+    <header class="csm-header" aria-label="CSM">
+      <img src="assets/logo-csm-primary.png" alt="CSM" class="csm-header-logo" />
+      <div class="csm-header-meta">
+        <span class="csm-header-version">v1.6</span>
+        <a href="https://skills.kancelariakantorowski.pl/" target="_blank" rel="noopener noreferrer" class="csm-update-link">Sprawdź najnowszą wersję</a>
+      </div>
+      <div id="bielikIndicator" class="bielik-indicator bielik-checking" title="Status Bielik AI — warstwa analizy kontekstowej">
+        <span class="bielik-dot" aria-hidden="true">●</span><span class="bielik-label"> Bielik</span>
+      </div>
+    </header>
+
+    <!-- ── Główna karta akcji ── -->
+    <div class="card negotiation-card" aria-label="CSM — anonimizacja dokumentu">
+      <div class="primary-actions-title">Bezpieczna kopia dokumentu</div>
+      <div class="primary-actions-desc">CSM sam tworzy kopię do pracy z AI, otwiera ją w Wordzie i pozwala wrócić do wersji jawnej. Zacznij od przycisku „Utwórz zanonimizowaną kopię”.</div>
+
+      <div class="profile-selector" aria-label="Profil dokumentu CSM">
+        <label for="documentProfile">Typ dokumentu</label>
+        <select id="documentProfile">
+          <option value="auto">Auto / domyślny</option>
+          <option value="pleadings">Pisma procesowe</option>
+          <option value="contracts">Umowy</option>
+        </select>
+        <div id="profileHint" class="small" style="margin-top:4px;color:var(--muted)">Wybór zostanie zapisany w dokumencie CSM.</div>
+      </div>
+
+      <div class="negotiation-actions">
+        <div class="action-cell">
+          <button id="btnV4Prepare" class="primary">① Utwórz zanonimizowaną kopię</button>
+          <div class="button-caption">Otwórz oryginalny plik DOCX i kliknij tutaj.</div>
+        </div>
+      </div>
+
+      <div class="review-mode-panel" aria-label="Tryb kontroli anonimizacji">
+        <label class="review-mode-row" for="reviewModeLight">
+          <input id="reviewModeLight" type="checkbox" />
+          <span>Dokładniejsza kontrola przed wysłaniem do AI</span>
+        </label>
+        <div class="review-mode-hint">Dodatkowe sprawdzenie po anonimizacji. CSM pokaże tylko kategorie ryzyka, bez znalezionych wartości.</div>
+        <div class="bielik-action-row">
+          <button id="btnV4PrepareBielik" class="secondary">Sprawdź dokładniej z Bielikiem</button>
+          <div class="button-caption">Lokalny model AI może wykryć trudniejsze dane. Może potrwać dłużej.</div>
+        </div>
+      </div>
+
+      <div class="step-connector" aria-hidden="true">↓&nbsp; pracuj bezpiecznie na kopii _CSM_anon.docx &nbsp;↓</div>
+
+      <div class="negotiation-actions">
+        <div class="action-cell">
+          <button id="btnV4Restore" class="secondary">② Przywróć wersję jawną</button>
+          <div class="button-caption">Kliknij po zakończeniu pracy na pliku <strong>_CSM_anon.docx</strong>.</div>
+        </div>
+      </div>
+
+      <div id="v4Downloads"></div>
+    </div>
+
+
+
+    <div class="card soft hidden" id="progressCard" aria-live="polite" aria-busy="true">
+      <div class="progress-card">
+        <span class="progress-spinner" aria-hidden="true"></span>
+        <div style="flex:1;min-width:0">
+          <div class="progress-title" id="progressTitle">Operacja w toku…</div>
+          <div class="progress-text" id="progressText">Poczekaj chwilę. Word i lokalny silnik CSM przetwarzają dokument.</div>
+          <div class="progress-bar-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBarWrap">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <div class="progress-footer">
+            <span class="progress-eta" id="progressEta"></span>
+            <span class="progress-pct" id="progressPct">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card soft">
+      <div class="state">
+        <span id="stateDot" class="dot"></span>
+        <div>
+          <div id="stateTitle" class="state-title">Sprawdzam status...</div>
+          <div id="stateDesc" class="state-desc">CSM uruchamia się automatycznie. Główne działania są w górnej części panelu.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="notices"></div>
+
+    <div class="support-card" aria-label="Pomoc CSM">
+      <strong>Coś nie działa?</strong> Napisz na <a href="mailto:csm@kancelariakantorowski.pl">csm@kancelariakantorowski.pl</a> — pomoże nam to rozwiązać problem.
+    </div>
+
+    <div class="brand-panel" aria-label="CSM — Kantorowski x Głąb">
+      <a href="https://kancelariakantorowski.pl/" target="_blank" rel="noopener noreferrer" class="brand-link" aria-label="Kancelaria Kantorowski x Głąb — strona kancelarii">
+        <img class="brand-logo-csm" src="assets/logo-csm-primary.png" alt="CSM" />
+      </a>
+      <div class="build-badge">v1.6 &nbsp;·&nbsp; Kantorowski × Głąb</div>
+    </div>
+
+    <div class="card soft" aria-label="Podstawowa kontrola CSM">
+      <div class="state-title" style="margin-bottom:6px">Kontrola działania</div>
+      <p class="small" style="margin:0 0 8px">Użyj tych przycisków tylko wtedy, gdy chcesz sprawdzić stan panelu albo odświeżyć informacje o bieżącym dokumencie.</p>
+      <div class="negotiation-actions" style="margin-top:6px">
+        <button id="btnCheck" class="secondary">Sprawdź działanie CSM</button>
+        <button id="btnRefreshStatus" class="ghost">Odśwież panel</button>
+      </div>
+      <div id="bielikStatusBadge" class="bielik-badge bielik-unknown" style="margin-top:6px;font-size:11px;color:var(--muted)"></div>
+    </div>
+
+    <details class="card soft" id="bielikPanel">
+      <summary>Analiza kontekstowa AI (Bielik)</summary>
+      <p class="small">Bielik to opcjonalne, głębsze sprawdzenie lokalnym modelem AI. Może pomóc wykryć trudniejsze nazwy osób, projektów, firm lub aliasów, których standardowy silnik mógł nie rozpoznać.</p>
+      <p class="small">Dokument nie jest wysyłany poza komputer. Sprawdzenie może potrwać dłużej i nie zastępuje ręcznej kontroli dokumentu.</p>
+      <p class="small" id="bielikPanelStatus" style="color:var(--muted)">Sprawdzanie statusu...</p>
+    </details>
+
+    <details id="manualRulesPanel" class="card soft technical-rules" open>
+      <summary>Własne reguły ukrywania danych</summary>
+      <p class="small">Tu możesz dopisać własne wyjątki dla konkretnej sprawy. Reguły zostają lokalnie na komputerze, ale mogą zawierać jawne dane — nie wysyłaj ich dalej.</p>
+      <p class="small">Najprościej dodawać reguły klikając przyciski przy pozycjach na liście ukrytych danych (poniżej wyniku anonimizacji). Wszystkie aktualne reguły widać na listach poniżej — każdą można pojedynczo usunąć.</p>
+
+      <div class="rule-group" aria-label="Reguły: zawsze ukrywaj te dane">
+        <div class="rule-group-title"><strong>Zawsze ukrywaj te dane</strong></div>
+        <div id="ruleListAlways" class="rule-list" data-empty="Brak reguł. Kliknij „Zawsze ukrywaj” przy pozycji na liście ukrytych danych."></div>
+      </div>
+
+      <div class="rule-group" aria-label="Reguły: nie ukrywaj tych danych">
+        <div class="rule-group-title"><strong>Nie ukrywaj tych danych</strong></div>
+        <div id="ruleListNever" class="rule-list" data-empty="Brak reguł. Kliknij „Nie ukrywaj” przy pozycji na liście ukrytych danych."></div>
+      </div>
+
+      <div class="rule-group" aria-label="Reguły: zmiana typu danych">
+        <div class="rule-group-title"><strong>Zmiana typu danych</strong></div>
+        <div id="ruleListCategory" class="rule-list" data-empty="Brak reguł. Kliknij „Zmień typ” przy pozycji na liście ukrytych danych."></div>
+      </div>
+
+      <div class="rule-group" aria-label="Reguły: połącz błędnie rozdzielone oznaczenia">
+        <div class="rule-group-title"><strong>Połącz błędnie rozdzielone oznaczenia</strong></div>
+        <div id="ruleListMerge" class="rule-list" data-empty="Brak reguł. Kliknij „Scal z...” przy pozycji na liście ukrytych danych."></div>
+      </div>
+
+      <div class="rule-group" aria-label="Klient lub sprawa dla zapisywanych reguł">
+        <label class="small" for="manualRulesClient"><strong>Klient / sprawa</strong> — reguły zapisane dla klienta są dołączane automatycznie przy każdej anonimizacji z tą nazwą</label>
+        <input id="manualRulesClient" type="text" style="width:100%;border:1px solid var(--line);border-radius:10px;padding:8px;font-size:12px" placeholder="np. Spółka ABC — sprawa o zapłatę" />
+      </div>
+
+      <div class="negotiation-actions" style="margin-top:8px">
+        <button id="btnPreviewControls" class="ghost">Podgląd skutków reguł (bez zmian w plikach)</button>
+        <button id="btnApplyManualControls" class="primary">Zastosuj reguły i utwórz nową kopię</button>
+        <button id="btnClearManualControls" class="ghost">Wyczyść reguły</button>
+      </div>
+      <div class="negotiation-actions" style="margin-top:4px">
+        <button id="btnSaveRulesClient" class="ghost">Zapisz reguły dla klienta</button>
+        <button id="btnSaveRulesGlobal" class="ghost">Zapisz reguły dla kancelarii</button>
+        <button id="btnShowSavedRules" class="ghost">Pokaż zapisane reguły</button>
+      </div>
+      <div id="controlsPreviewBox" class="small"></div>
+
+      <details class="rule-advanced" id="manualRulesAdvanced">
+        <summary>Edycja tekstowa i zapis reguł (zaawansowane)</summary>
+        <p class="small">Poniższe pola to ta sama treść co listy powyżej, tyle że w formie tekstowej — jedna reguła w linii. Przydatne do hurtowej edycji lub sklejenia z pliku roboczego.</p>
+
+        <label class="small"><strong>Zawsze ukrywaj te dane</strong> — jedna fraza w linii, opcjonalnie: fraza =&gt; CATEGORY</label>
+        <textarea id="manualAlways" style="width:100%;min-height:76px;border:1px solid var(--line);border-radius:10px;padding:8px;font-size:12px" placeholder="np. Jan Kowalski&#10;Kancelaria Prawna Kantorowski, Głąb i Wspólnicy Sp.j.&#10;KW RZ1Z/00012345/6 =&gt; LAND_REGISTER"></textarea>
+
+        <label class="small"><strong>Nie ukrywaj tych danych</strong> — jedna fraza w linii. Dane z sumą kontrolną (PESEL, NIP, IBAN...) pozostają ukryte, chyba że poprzedzisz regułę znakiem <code>!</code> (świadome odsłonięcie)</label>
+        <textarea id="manualNever" style="width:100%;min-height:56px;border:1px solid var(--line);border-radius:10px;padding:8px;font-size:12px" placeholder="np. Rada Gminy Przemyśl&#10;Kodeks cywilny&#10;!44051401359"></textarea>
+
+        <label class="small"><strong>Zmiana typu danych</strong> — fraza =&gt; CATEGORY, jedna para w linii</label>
+        <textarea id="manualCategory" style="width:100%;min-height:54px;border:1px solid var(--line);border-radius:10px;padding:8px;font-size:12px" placeholder="np. RZ1Z/00012345/6 =&gt; LAND_REGISTER"></textarea>
+
+        <label class="small"><strong>Połącz błędnie rozdzielone oznaczenia</strong> — SOURCE =&gt; TARGET, jedna para w linii</label>
+        <textarea id="manualMerge" style="width:100%;min-height:54px;border:1px solid var(--line);border-radius:10px;padding:8px;font-size:12px" placeholder="np. [OSOBA_8] =&gt; [OSOBA_3]"></textarea>
+
+        <div class="negotiation-actions" style="margin-top:8px">
+          <button id="btnSaveManualControls" class="ghost">Zapisz moje reguły</button>
+          <button id="btnLoadManualControls" class="ghost">Wczytaj moje reguły</button>
+          <button id="btnImportManualControls" class="ghost">Importuj TXT</button>
+          <button id="btnExportManualControls" class="ghost">Eksportuj TXT</button>
+        </div>
+        <p class="small">Import i eksport TXT służy do prostego przekazania wyjątków, np. w pliku roboczym od prawnika. Plik może zawierać jawne dane.</p>
+      </details>
+    </details>
+
+
+    <div id="uncertainReviewModal" class="uncertain-modal hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="uncertainReviewTitle">
+      <div class="uncertain-box">
+        <div id="uncertainReviewTitle" class="uncertain-title">Wątpliwe elementy do dodatkowej pseudonimizacji</div>
+        <div class="uncertain-hint">CSM nie ukrywa tych wartości automatycznie, żeby nie zniszczyć tekstu. Zaznacz tylko te elementy, które faktycznie powinny zostać dopisane do mapy pseudonimizacji. Dane są pokazywane wyłącznie lokalnie w panelu.</div>
+        <div class="negotiation-actions" style="margin-top:4px">
+          <button id="btnUncertainSelectAll" class="ghost">Zaznacz wszystkie</button>
+        </div>
+        <div id="uncertainReviewList" class="uncertain-list"></div>
+        <label class="small" style="display:block;margin-top:6px"><input type="checkbox" id="uncertainSaveToClient" /> Zapisz zaznaczone także jako stałe reguły klienta (z pola „Klient / sprawa”)</label>
+        <div class="uncertain-actions">
+          <button id="btnUncertainApply" class="primary">Dodaj zaznaczone i utwórz nową kopię</button>
+          <button id="btnUncertainSkip" class="ghost">Pomiń teraz</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="manualRulePicker" class="rule-picker hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="manualRulePickerTitle">
+      <div class="rule-picker-box">
+        <div class="rule-picker-title" id="manualRulePickerTitle">Wybierz</div>
+        <div class="rule-picker-hint" id="manualRulePickerHint"></div>
+        <select id="manualRulePickerSelect" class="rule-picker-select" aria-label="Wybór wartości"></select>
+        <input id="manualRulePickerCustom" class="rule-picker-custom hidden" type="text" placeholder="Wpisz własną kategorię (WIELKIE_LITERY)" aria-label="Własna kategoria" />
+        <div class="negotiation-actions" style="margin-top:8px">
+          <button id="manualRulePickerConfirm" class="primary">Zatwierdź</button>
+          <button id="manualRulePickerCancel" class="ghost">Anuluj</button>
+        </div>
+      </div>
+    </div>
+
+    <details class="card soft">
+      <summary>Opcje awaryjne</summary>
+      <p class="small">Użyj tylko wtedy, gdy standardowe przywracanie nie działa.</p>
+      <div class="manual-restore" aria-label="Awaryjne przywracanie wersji jawnej">
+        <div class="manual-restore-title">Awaryjne przywrócenie wersji jawnej</div>
+        <div class="manual-restore-hint" id="manualRestoreHint">Wskaż plik <strong>_CSM_anon.docx</strong>, z którego CSM ma przywrócić dane jawne.</div>
+        <input id="manualRestoreFile" class="file-input" type="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+        <button id="btnV4RestoreManual" class="secondary">Awaryjnie przywróć wersję jawną z pliku</button>
+      </div>
+    </details>
+
+    <div id="legacyHiddenControls" class="hidden" aria-hidden="true">
+      <button id="btnEmergency" class="ghost">Przywróć z kopii awaryjnej</button>
+      <button id="btnClearAcknowledged" class="secondary">Zakończ pracę na jawnej wersji</button>
+      <button id="btnTechStatus" class="ghost">Pokaż szczegóły techniczne</button>
+      <button id="btnRevisionSidecarStatus" class="ghost">Sprawdź śledzenie zmian</button>
+      <button id="btnMain" class="primary" onclick="if(window.CSM_handleMainClick){return window.CSM_handleMainClick(event);}else{var s=document.getElementById('status');if(s)s.textContent='Klik zarejestrowany, ale taskpane.js nie jest jeszcze załadowany. Zamknij i otwórz panel ponownie.';return false;}">Przygotuj aktywny dokument (tryb szybki)</button>
+      <button id="btnRestore" class="danger" onclick="if(window.disableSafeMode){window.disableSafeMode();return false;}">Przywróć aktywny dokument</button>
+      <button id="btnDownloadMappings" class="ghost">Pobierz listę podmian JSON</button>
+      <button id="btnDownloadAnonReport" class="ghost">Pobierz raport JSON</button>
+    </div>
+
+    <!-- Kroki pracy usunięto z widocznego panelu: główne działania są dostępne w dwóch dużych przyciskach powyżej. -->
+
+    <div id="summaryCard" class="card hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div class="state-title">Wynik anonimizacji</div>
+        <div id="mEntities" style="font-size:12px;color:var(--muted)">0 wartości</div>
+      </div>
+
+      <div class="negotiation-actions" style="margin-top:6px">
+        <button id="btnPreviewMap" class="ghost">Pokaż listę ukrytych danych</button>
+        <button id="btnCopyMappings" class="ghost">Kopiuj listę TXT</button>
+      </div>
+      <div id="mappingPreview" class="small" style="margin:8px 0; max-height:260px; overflow:auto"></div>
+
+      <!-- Pasek jakości — główny sygnalizator -->
+      <div id="qualityBanner" class="quality-banner amber hidden" role="status">
+        <div class="quality-dot"></div>
+        <div id="qualityBannerText" class="quality-text">Sprawdzam...</div>
+        <button id="btnQualityCheck" class="quality-toggle" aria-expanded="false">Szczegóły ▾</button>
+      </div>
+
+      <!-- Panel wątpliwości — rozwijany po kliknięciu -->
+      <div id="qualityPanel" class="quality-panel hidden" aria-live="polite">
+        <div id="qualityDetails"></div>
+        <hr class="divider">
+        <div class="negotiation-actions" style="margin-top:4px">
+          <button id="btnCopyAnonReport" class="ghost" style="font-size:11px;padding:7px 8px">Kopiuj raport TXT</button>
+        </div>
+        <div id="reportPathNotice" class="small" style="margin-top:6px;color:var(--muted)"></div>
+      </div>
+
+
+      <div id="uncertainReviewCallout" class="notice warn hidden" style="margin-top:8px">
+        CSM znalazł wątpliwe elementy, których nie dopisał automatycznie do pseudonimizacji. Możesz ręcznie zaznaczyć, które mają być dodatkowo ukryte.
+        <button id="btnReviewUncertain" class="secondary uncertain-inline-button">Przejrzyj wątpliwe elementy</button>
+      </div>
+
+      <!-- Kategorie -->
+      <div id="categoryBadges" style="margin-top:8px"></div>
+    </div>
+
+    <details class="license-details">
+      <summary>Licencja i dane dostawcy</summary>
+      <div class="license-box">
+        <p><strong>Oprogramowanie darmowe. Korzystanie oznacza akceptację pełnej licencji.</strong></p>
+        <pre style="white-space:pre-wrap; font-family:inherit; font-size:10.5px; line-height:1.32; max-height:260px; overflow:auto; margin:8px 0 0;">LICENCJA OTWARTA CSM
+Wersja 1.0, 2025
+
+Copyright © 2024–2025 Kancelaria Prawna Kantorowski, Głąb i Wspólnicy Sp.j.
+ul. Baczyńskiego 6B, Rzeszów
+KRS: 0000897641 | NIP: 5170383178 | REGON: 367784460
+
+(dalej: „Licencjodawca&quot;)
+
+========================================================================
+
+§ 1. DEFINICJE
+
+1. „Oprogramowanie&quot; — program CSM for Word w wersji
+   udostępnionej przez Licencjodawcę, obejmującej kod źródłowy, pliki
+   konfiguracyjne, skrypty, dokumentację, pliki zasobów (ikony, loga)
+   oraz wszelkie inne elementy wchodzące w skład dystrybucji.
+
+2. „Licencjobiorca&quot; — każda osoba fizyczna lub prawna, która uzyskała
+   dostęp do Oprogramowania i korzysta z niego na warunkach niniejszej
+   Licencji.
+
+3. „Modyfikacja&quot; — każda zmiana kodu źródłowego Oprogramowania, w tym
+   poprawki błędów, rozszerzenia funkcjonalności, adaptacje, porty
+   oraz utwory zależne bazujące na Oprogramowaniu w całości lub
+   w części.
+
+4. „Dystrybucja&quot; — udostępnienie Oprogramowania lub jego Modyfikacji
+   osobom trzecim, niezależnie od formy (fizyczna kopia, pobieranie
+   online, przesyłanie pomiędzy podmiotami, udostępnienie jako usługa).
+
+========================================================================
+
+§ 2. UDZIELENIE LICENCJI
+
+1. Licencjodawca udziela Licencjobiorcy nieodpłatnej, niewyłącznej,
+   nieograniczonej terytorialnie licencji na korzystanie z
+   Oprogramowania, w tym na:
+
+   a) uruchamianie i użytkowanie Oprogramowania w dowolnym celu,
+      w tym komercyjnym;
+   b) kopiowanie i rozpowszechnianie Oprogramowania;
+   c) analizę, badanie i dekompilację kodu źródłowego;
+   d) tworzenie Modyfikacji.
+
+2. Licencja jest udzielana na czas nieoznaczony. Licencjodawca może
+   wypowiedzieć licencję w przypadku naruszenia jej warunków przez
+   Licencjobiorcę, z zachowaniem 30-dniowego terminu na usunięcie
+   naruszenia.
+
+========================================================================
+
+§ 3. COPYLEFT — WARUNKI MODYFIKACJI I DYSTRYBUCJI
+
+1. Licencjobiorca może tworzyć i rozpowszechniać Modyfikacje wyłącznie
+   pod warunkiem, że:
+
+   a) Modyfikacja jest udostępniana na warunkach identycznych
+      z niniejszą Licencją (copyleft);
+   b) Modyfikacja zawiera wyraźne oznaczenie, że stanowi zmienioną
+      wersję Oprogramowania, z podaniem autora Modyfikacji i daty
+      zmiany;
+   c) Modyfikacja jest udostępniana łącznie z pełnym kodem źródłowym,
+      w formie umożliwiającej dalszą modyfikację.
+
+2. Przy każdej Dystrybucji Oprogramowania lub jego Modyfikacji
+   Licencjobiorca jest zobowiązany dołączyć pełny tekst niniejszej
+   Licencji.
+
+========================================================================
+
+§ 4. PRZESYŁANIE MODYFIKACJI LICENCJODAWCY
+
+1. W przypadku stworzenia jakiejkolwiek Modyfikacji Licencjobiorca
+   jest zobowiązany przesłać Licencjodawcy kopię Modyfikacji
+   w rozsądnym terminie (nie dłuższym niż 30 dni od pierwszej
+   Dystrybucji Modyfikacji), na adres e-mail: kontakt@kancelariakantorowski.pl
+   lub inny adres wskazany przez Licencjodawcę na jego stronie
+   internetowej.
+
+2. Przesyłając Modyfikację, Licencjobiorca udziela Licencjodawcy
+   nieodpłatnej, niewyłącznej, nieograniczonej terytorialnie
+   i czasowo licencji na korzystanie z przesłanej Modyfikacji,
+   w tym na:
+
+   a) włączenie Modyfikacji do Oprogramowania;
+   b) modyfikowanie Modyfikacji;
+   c) rozpowszechnianie Modyfikacji (samodzielnie lub jako część
+      Oprogramowania) na warunkach niniejszej Licencji lub innej
+      licencji wybranej przez Licencjodawcę dla przyszłych wersji
+      Oprogramowania;
+   d) komercyjne wykorzystanie Modyfikacji.
+
+3. Licencjobiorca zachowuje wszelkie prawa autorskie do przesłanej
+   Modyfikacji i może z niej korzystać również niezależnie
+   od Oprogramowania.
+
+========================================================================
+
+§ 5. WYŁĄCZENIE ODPOWIEDZIALNOŚCI
+
+1. OPROGRAMOWANIE JEST UDOSTĘPNIANE W STANIE „TAK JAK JEST&quot;
+   (AS IS), BEZ JAKICHKOLWIEK GWARANCJI, W TYM BEZ GWARANCJI
+   PRZYDATNOŚCI DO OKREŚLONEGO CELU, GWARANCJI POPRAWNOŚCI
+   DZIAŁANIA, GWARANCJI KOMPLETNOŚCI ANI GWARANCJI BRAKU
+   NARUSZENIA PRAW OSÓB TRZECICH.
+
+2. W najszerszym zakresie dozwolonym przez bezwzględnie obowiązujące
+   przepisy prawa, Licencjodawca nie ponosi odpowiedzialności za
+   jakiekolwiek szkody wynikające z korzystania z Oprogramowania
+   lub niemożności korzystania z niego, w szczególności za:
+
+   a) utratę danych, dokumentów lub ich uszkodzenie;
+   b) niekompletną lub nieprawidłową pseudonimizację;
+   c) ujawnienie danych poufnych pomimo zastosowania Oprogramowania;
+   d) szkody wynikające z błędów, przerw w działaniu lub
+      niezgodności z konkretną wersją Microsoft Word, Office 365
+      lub systemem operacyjnym;
+   e) szkody pośrednie, wtórne, przypadkowe, moralne lub o charakterze
+      kary (punitive damages), utratę zysków, utratę renomy lub
+      utratę klientów;
+   f) działania osób trzecich, w tym modyfikacje Oprogramowania
+      dokonane przez Licencjobiorcę lub osoby trzecie.
+
+3. Licencjobiorca korzysta z Oprogramowania na własną
+   odpowiedzialność i powinien każdorazowo zweryfikować wynik
+   pseudonimizacji przed przekazaniem dokumentu do przetwarzania
+   przez modele AI (w tym Claude for Word) lub przed udostępnieniem
+   dokumentu osobom trzecim.
+
+4. Oprogramowanie jest narzędziem wspomagającym i nie zastępuje
+   ręcznej kontroli dokumentu przez Licencjobiorcę. Licencjobiorca
+   jest jedynym podmiotem odpowiedzialnym za przestrzeganie
+   obowiązujących przepisów o ochronie danych osobowych (RODO),
+   tajemnicy zawodowej i poufności.
+
+5. Skuteczność wykrywania danych podlegających pseudonimizacji zależy
+   od treści konkretnego dokumentu, wybranej wersji modelu Bielik oraz
+   parametrów sprzętowych komputera, na którym Oprogramowanie jest
+   uruchamiane. Żadna z tych konfiguracji nie gwarantuje wykrycia
+   wszystkich danych osobowych lub informacji objętych tajemnicą
+   zawodową.
+
+6. Z tego względu Licencjobiorca zobowiązuje się każdorazowo
+   przeanalizować dokument po pseudonimizacji przed jego przekazaniem
+   do modelu językowego (LLM). Ujawnienie danych osobowych lub
+   informacji objętych tajemnicą zawodową wskutek zaniechania tej
+   analizy stanowi wyłącznie skutek decyzji Licencjobiorcy, za który
+   Licencjodawca nie ponosi odpowiedzialności.
+
+========================================================================
+
+§ 6. ZNAKI TOWAROWE I OZNACZENIA
+
+1. Niniejsza Licencja nie udziela prawa do używania nazw
+   handlowych, znaków towarowych ani oznaczeń Licencjodawcy
+   (w tym „Kantorowski, Głąb i Wspólnicy&quot;, „CSM&quot;,
+   logotypów), z wyjątkiem:
+
+   a) oznaczenia autorstwa Oprogramowania w informacji o licencji;
+   b) informacji, że Modyfikacja bazuje na Oprogramowaniu
+      Licencjodawcy.
+
+========================================================================
+
+§ 7. POSTANOWIENIA KOŃCOWE
+
+1. Niniejsza Licencja podlega prawu polskiemu.
+
+2. W sprawach nieuregulowanych niniejszą Licencją zastosowanie mają
+   przepisy ustawy z dnia 4 lutego 1994 r. o prawie autorskim
+   i prawach pokrewnych, Kodeksu cywilnego oraz innych właściwych
+   aktów prawnych.
+
+3. Ewentualne spory rozstrzygane będą przez sąd właściwy dla
+   siedziby Licencjodawcy.
+
+4. Jeżeli jakiekolwiek postanowienie niniejszej Licencji okaże się
+   nieważne lub niewykonalne, pozostałe postanowienia pozostają
+   w mocy, a nieważne postanowienie będzie interpretowane w sposób
+   możliwie najbliższy jego pierwotnemu celowi.
+
+5. Korzystanie z Oprogramowania oznacza akceptację warunków
+   niniejszej Licencji.
+
+========================================================================
+</pre>
+      </div>
+    </details>
+
+
+    <details id="vpsSettingsPanel" class="card soft">
+      <summary>Ustawienia VPS / Tryb pracy</summary>
+      <div id="vpsLocalInfo" class="notice info" style="margin-top:8px">
+        <strong>Tryb lokalny</strong> — serwer CSM działa na tym komputerze. Brak konfiguracji VPS.
+      </div>
+      <div id="vpsRemoteInfo" class="hidden">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:12px;margin:8px 0 10px">
+          <span style="color:var(--muted);font-weight:700">Serwer:</span>
+          <span id="vpsServerUrl" style="word-break:break-all"></span>
+          <span style="color:var(--muted);font-weight:700">Model Bielik:</span>
+          <span id="vpsBielikModel"></span>
+          <span style="color:var(--muted);font-weight:700">Embeddingi:</span>
+          <span id="vpsEmbedProvider"></span>
+        </div>
+        <label class="small" for="vpsOrgToken"><strong>Token organizacji (org-token)</strong></label>
+        <span class="field-help">Wpisz token jeśli dołączasz do istniejącego VPS lub token uległ zmianie.</span>
+        <input type="password" id="vpsOrgToken" style="width:100%;border:1px solid var(--line);border-radius:10px;padding:8px;font-size:12px;margin:4px 0 8px" placeholder="Wklej token organizacji..." />
+        <button id="btnSaveVpsToken" class="primary" style="margin-top:0">Zapisz token i połącz</button>
+        <div id="vpsTokenStatus" class="small" style="margin-top:6px;color:var(--muted)"></div>
+      </div>
+    </details>
+
+    <details id="servicePanel" class="license-details">
+      <summary>Serwis i instalacja CSM</summary>
+      <p class="small" style="margin:8px 0 10px">CSM zwykle uruchamia się sam. Tych opcji używaj tylko przy problemach technicznych albo na prośbę wsparcia.</p>
+      <div class="negotiation-actions" style="gap:6px">
+        <button id="btnSvcStart"  class="primary"   style="background:#047857">Uruchom CSM</button>
+        <button id="btnSvcStop"   class="secondary" style="background:#1e40af;color:#fff">Zatrzymaj CSM</button>
+        <button id="btnSvcRepair" class="secondary" style="background:#6366f1;color:#fff">Napraw instalację</button>
+        <button id="btnSvcClean"  class="danger"    style="background:#b91c1c">Wyczyść cache Worda</button>
+      </div>
+      <button id="btnSvcDiagnose" class="ghost" style="margin-top:6px">Pokaż logi instalacji</button>
+      <button id="btnSvcUninstall" class="ghost" style="margin-top:4px;border-color:#b91c1c;color:#b91c1c">Odinstaluj CSM</button>
+      <div id="svcLog" class="status hidden" style="min-height:80px;max-height:260px;overflow-y:auto;white-space:pre-wrap;font-size:11px;font-family:monospace;margin-top:8px"></div>
+      <div id="svcStatus" class="small" style="margin-top:6px;color:var(--muted)"></div>
+    </details>
+
+    <details>
+      <summary>Status techniczny</summary>
+      <div class="card">
+        <div id="status" class="status">Gotowe.</div>
+      </div>
+    </details>
+  </div>
+  <script src="csm-token.js?v=1.6-20260710"></script>
+  <script src="state-machine.js?v=1.6-20260710"></script>
+  <script src="word-bridge.js?v=1.6-20260710"></script>
+  <script src="revision_bridge.js?v=1.6-20260710"></script>
+  <script src="taskpane.js?v=1.6-20260710"></script>
+  <script>
+    (function () {
+      var status = document.getElementById('status');
+      if (status && !window.mainAction) {
+        status.textContent = 'Panel HTML wczytany. Czekam na taskpane.js...';
+      }
+      // VPS settings panel — populate from server config
+      (function() {
+        var localInfo  = document.getElementById('vpsLocalInfo');
+        var remoteInfo = document.getElementById('vpsRemoteInfo');
+        if (!localInfo || !remoteInfo) return;
+        var base = (window.CSM_API_BASE || 'http://127.0.0.1:8787');
+        fetch(base + '/health').then(function(r){ return r.json(); }).then(function(d) {
+          if (d && d.remote_mode) {
+            localInfo.classList.add('hidden');
+            remoteInfo.classList.remove('hidden');
+            var urlEl = document.getElementById('vpsServerUrl');
+            var modelEl = document.getElementById('vpsBielikModel');
+            var embedEl = document.getElementById('vpsEmbedProvider');
+            if (urlEl)   urlEl.textContent   = base;
+            if (modelEl) modelEl.textContent = d.bielik_model || '—';
+            if (embedEl) embedEl.textContent = d.embedding_provider || '—';
+          }
+        }).catch(function(){});
+        var saveBtn = document.getElementById('btnSaveVpsToken');
+        if (saveBtn) saveBtn.addEventListener('click', function() {
+          var token = document.getElementById('vpsOrgToken').value.trim();
+          var status = document.getElementById('vpsTokenStatus');
+          if (!token) { if(status) status.textContent = 'Wpisz token.'; return; }
+          // Store token in localStorage for csm-token.js to pick up
+          try { localStorage.setItem('csm_vps_org_token', token); } catch(e) {}
+          if (status) status.textContent = 'Token zapisany. Odswiezam...';
+          setTimeout(function(){ location.reload(); }, 800);
+        });
+      })();
+      setTimeout(function () {
+        if (!window.mainAction) {
+          var title = document.getElementById('stateTitle');
+          var desc = document.getElementById('stateDesc');
+          var dot = document.getElementById('stateDot');
+          var notices = document.getElementById('notices');
+          if (title) title.textContent = 'taskpane.js nie został załadowany';
+          if (desc) desc.textContent = 'Przycisk działa, ale główny skrypt dodatku nie został wykonany.';
+          if (dot) dot.className = 'dot danger';
+          if (status) status.textContent = 'taskpane.js nie został załadowany albo przerwał start. Użyj CSM-CLEAN i sprawdź Console w DevTools. Jeśli coś nie działa, napisz na csm@kancelariakantorowski.pl - pomoże nam to rozwiązać Twój problem.';
+          if (notices) notices.innerHTML = '<div class="notice danger">Główny skrypt panelu nie działa. To nie jest błąd dokumentu — Word prawdopodobnie trzyma stary cache albo zablokował plik JS. Jeśli coś nie działa, napisz na csm@kancelariakantorowski.pl - pomoże nam to rozwiązać Twój problem.</div>';
+        } else if (window.CSM_bindButtons) {
+          try { window.CSM_bindButtons(); } catch (e) {}
+        }
+      }, 1000);
+    })();
+  </script>
+
+</body>
+</html>

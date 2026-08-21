@@ -1,0 +1,6 @@
+# Optional local NLP dependencies. Not installed by default.
+# Core CSM remains deterministic/offline and works without this file.
+spacy==3.7.6
+# GLiNER is intentionally not forced here because model and torch wheels depend
+# on the workstation/GPU/CPU setup. Install manually only for residual scanning.
+# gliner

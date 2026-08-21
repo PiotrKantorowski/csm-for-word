@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <title>CSM for Word v1.6 — instalacja</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; max-width: 900px; margin: 40px auto; line-height: 1.55; color: #111827; padding: 0 20px; }
+    code { background:#f3f4f6; padding:2px 5px; border-radius:4px; }
+    .card { border:1px solid #e5e7eb; border-radius:16px; padding:18px; margin:18px 0; }
+    .good { background:#ecfdf5; border-color:#a7f3d0; }
+    .warn { background:#fffbeb; border-color:#fcd34d; }
+    .info { background:#eff6ff; border-color:#93c5fd; }
+    .logos { display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin:28px 0 8px; }
+    .logos a { display:inline-flex; align-items:center; opacity:0.9; transition:opacity .15s; }
+    .logos a:hover { opacity:1; }
+    .logos img { height:48px; max-width:180px; object-fit:contain; }
+    .logos .sep { color:#d1d5db; font-size:1.5rem; }
+    hr { border:none; border-top:1px solid #e5e7eb; margin:28px 0; }
+    h1 { margin-bottom:4px; }
+    .subtitle { color:#6b7280; margin-top:0; font-size:0.95rem; }
+    #installer-badge { display:inline-block; background:#1d4ed8; color:#fff; border-radius:6px; font-size:0.8rem; font-weight:600; padding:2px 10px; vertical-align:middle; margin-left:10px; }
+    #source-badge   { display:inline-block; background:#059669; color:#fff; border-radius:6px; font-size:0.8rem; font-weight:600; padding:2px 10px; vertical-align:middle; margin-left:10px; }
+    .hidden { display:none !important; }
+  </style>
+</head>
+<body>
+  <h1>CSM for Word v1.6
+    <span id="installer-badge" class="hidden">Instalator</span>
+    <span id="source-badge"    class="hidden">Tryb źródłowy</span>
+  </h1>
+  <p class="subtitle">Prawna anonimizacja dokumentów Word ze śledzeniem zmian</p>
+  <p class="subtitle">Aktualny instalator: <code>CSM-Setup-v1.6.exe</code></p>
+
+  <!-- ===== INSTALLER PATH ===== -->
+  <div id="section-installer" class="hidden">
+    <div class="card good">
+      <h2>✓ Instalacja zakończona</h2>
+      <p>CSM został zainstalowany w <code>C:\CSM</code>. Na pulpicie i w menu Start znajdziesz skróty:</p>
+      <ul>
+        <li><strong>CSM – uruchom</strong> — ręczne uruchomienie usług lokalnych</li>
+        <li><strong>CSM – zatrzymaj</strong> — zatrzymanie usług</li>
+        <li><strong>CSM – diagnoza</strong> — raport diagnostyczny w razie problemów</li>
+      </ul>
+      <p>Autostart usług CSM został skonfigurowany — CSM uruchomi się automatycznie po zalogowaniu do Windows.</p>
+    </div>
+    <div class="card info">
+      <h2>Pierwsze uruchomienie w Wordzie</h2>
+      <ol>
+        <li>Otwórz Microsoft Word.</li>
+        <li>W zakładce <strong>Wstawianie → Moje dodatki</strong> lub <strong>Dodatki → Zarządzaj dodatkami</strong> pojawi się <strong>CSM for Word</strong>.<br>
+            Jeśli nie widać dodatku, zamknij i ponownie otwórz Worda.</li>
+        <li>Użyj przycisku <strong>Utwórz i otwórz kopię do pracy z Claude</strong> — dokument zostanie zanonimizowany i otwarty w Wordzie.</li>
+        <li>Po pracy z Claude kliknij <strong>Utwórz i otwórz wersję jawną</strong>, aby przywrócić dane osobowe jako śledzenie zmian.</li>
+      </ol>
+    </div>
+    <div class="card warn">
+      <h2>Gdy Word nie widzi dodatku CSM</h2>
+      <p>Kliknij skrót <strong>CSM – uruchom</strong> na pulpicie, a następnie w panelu wybierz <strong>NAPRAW</strong>. Nie trzeba ręcznie dodawać katalogu w Centrum zaufania Worda — instalator zrobił to automatycznie.</p>
+    </div>
+  </div>
+
+  <!-- ===== SOURCE / ZAINSTALUJ_CSM.CMD PATH ===== -->
+  <div id="section-source" class="hidden">
+    <div class="card good">
+      <h2>✓ Konfiguracja zakończona</h2>
+      <p>CSM działa z bieżącego katalogu źródłowego. Środowisko Python, autostart i zaufany katalog Word zostały skonfigurowane.</p>
+    </div>
+    <div class="card info">
+      <h2>Pierwsze uruchomienie w Wordzie</h2>
+      <ol>
+        <li>Otwórz Microsoft Word.</li>
+        <li>W zakładce <strong>Wstawianie → Moje dodatki</strong> lub <strong>Dodatki → Zarządzaj dodatkami</strong> pojawi się <strong>CSM for Word</strong>.</li>
+        <li>Użyj przycisku <strong>Utwórz i otwórz kopię do pracy z Claude</strong>.</li>
+        <li>Po pracy z Claude kliknij <strong>Utwórz i otwórz wersję jawną</strong>.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h2>Codzienne użycie</h2>
+      <p>Po instalacji CSM uruchamia się automatycznie po zalogowaniu. Skróty w katalogu <code>tools\</code> pozwalają ręcznie uruchomić, zatrzymać lub naprawić CSM.</p>
+    </div>
+    <div class="card warn">
+      <h2>Gdy Word nie widzi dodatku CSM</h2>
+      <p>Uruchom <code>tools\ZAINSTALUJ_CSM.cmd</code> ponownie lub otwórz <code>tools\CSM-DIAGNOZA.cmd</code>, aby sprawdzić stan środowiska.</p>
+    </div>
+  </div>
+
+  <hr>
+  <p><a href="LICENSE.pdf" download>Pobierz licencję w PDF</a> | <a href="LICENSE.txt" download>Pobierz licencję w TXT</a></p>
+
+  <div class="logos">
+    <a href="https://skills.kancelariakantorowski.pl/" target="_blank" rel="noopener" title="CSM for Word">
+      <img src="assets/logo-csm-app.png" alt="CSM for Word" />
+    </a>
+    <span class="sep">|</span>
+    <a href="https://prawodlabiznesu.eu/" target="_blank" rel="noopener" title="Prawo dla Biznesu">
+      <img src="assets/logo-prawo-dla-biznesu-real.png" alt="Prawo dla Biznesu" />
+    </a>
+    <span class="sep">|</span>
+    <a href="https://kancelariakantorowski.pl/" target="_blank" rel="noopener" title="Kancelaria Kantorowski">
+      <img src="assets/logo-kxg-real.png" alt="Kancelaria Kantorowski" />
+    </a>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var fromInstaller = params.get('from') === 'installer';
+
+      // Fallback: detect standard install path C:\CSM\ even without query param
+      if (!fromInstaller) {
+        var href = window.location.href.toLowerCase().replace(/\\/g, '/');
+        fromInstaller = /[:/]csm\/install-guide\.html/.test(href);
+      }
+
+      document.getElementById('section-installer').classList.toggle('hidden', !fromInstaller);
+      document.getElementById('section-source').classList.toggle('hidden', fromInstaller);
+      document.getElementById('installer-badge').classList.toggle('hidden', !fromInstaller);
+      document.getElementById('source-badge').classList.toggle('hidden', fromInstaller);
+    })();
+  </script>
+</body>
+</html>

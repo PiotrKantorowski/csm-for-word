@@ -1,0 +1,15 @@
+CSM v0.4.2.2
+Data: 2026-05-16
+
+Zakres:
+- dodano kontekstowe wykrywanie rachunków bankowych / IBAN / NRB, także gdy numer jest fikcyjny testowo i nie przechodzi sumy kontrolnej, ale występuje przy etykietach typu „rachunek bankowy”, „konto”, „IBAN”, „NRB”, „przelew”;
+- rozszerzono obsługę separatorów numerów rachunku: spacje, twarde spacje, wąskie spacje oraz myślniki;
+- dodano kategorię BANK_ACCOUNT do mapy i raportu anonimizacji;
+- dodano niedyskryminujący skan ryzyk pozostałych dla numerów rachunków bankowych;
+- dodano bezpieczne zasłanianie obrazów w kopii *_CSM_anon.docx, ponieważ tekst w pikselach nie jest objęty zwykłą pseudonimizacją XML/DOCX;
+- dodano raportowanie liczby obrazów i liczby obrazów zasłoniętych;
+- restore lokalnie przywraca oryginalne media z zapisanego oryginału, jeżeli są dostępne w mapie/sesji CSM;
+- dodano szablon budowy jednoplikowego instalatora CSM-Setup.exe przez Inno Setup.
+
+Uwaga:
+- Licencja nie została zmieniona zgodnie z decyzją właściciela projektu.

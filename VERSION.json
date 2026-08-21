@@ -1,0 +1,16 @@
+{
+  "version": "1.6",
+  "release_name": "CSM v1.6",
+  "release_channel": "stable",
+  "cloud_features": true,
+  "ocr_features": false,
+  "document_profiles": [
+    "auto",
+    "pleadings",
+    "contracts"
+  ],
+  "build": "v1.6-20260710",
+  "label": "1.6",
+  "tracked_changes_sidecar": "configured-and-status-probed",
+  "release_notes": "CSM v1.6: przebudowa regul recznych — dopasowanie w granicach slow, ochrona danych z suma kontrolna przed przypadkowym odslonieciem (wymuszenie przez !), odmiana przez przypadki i wspolna rodzina placeholderow dla regul OSOBA/FIRMA/SAD, podglad skutkow regul przed zastosowaniem, reguly zapisywane lokalnie dla klienta i kancelarii, rozliczalnosc regul po anonimizacji"
+}

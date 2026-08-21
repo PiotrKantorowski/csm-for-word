@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "description": "Sample of Polish street names for documentation and testing. Full street gazetteer (ULIC/TERYT) not yet bundled — streets are currently detected via pattern matching (ul./al./pl. prefix + name + building number) rather than gazetteer lookup. This sample is a placeholder for a future runtime gazetteer built with tools/build_pl_gazetteers.py --source teryt-ulic.",
+  "source_ref": "teryt_localities",
+  "generated_at": "2026-05-20",
+  "masking_rule": "A street name alone must NOT be masked. Masking requires: street prefix (ul./al./pl./os.) + name + building number, optionally followed by postal code + city.",
+  "entries": [
+    "Dąbrowskiego", "Mickiewicza", "Sienkiewicza", "Kościuszki",
+    "Piłsudskiego", "Słowackiego", "Wyspiańskiego", "Reymonta",
+    "Norwida", "Prusa", "Orzeszkowej", "Konopnickiej",
+    "Lipowa", "Różana", "Brzozowa", "Klonowa",
+    "Słoneczna", "Leśna", "Polna", "Kwiatowa"
+  ]
+}

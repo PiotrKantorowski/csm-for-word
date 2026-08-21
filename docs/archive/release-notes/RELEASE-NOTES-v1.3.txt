@@ -1,0 +1,34 @@
+CSM for Word v1.3 — Release Notes
+
+CSM for Word v1.0 pozostaje bazą produkcyjną tej linii wydania. Wersja v1.3
+porządkuje kontrolę po pseudonimizacji i dodaje wybór trybu sprawdzania bez
+zmiany zasad powrotu do wersji jawnej.
+
+Najważniejsze zmiany
+
+1. Dwa tryby kontroli anonimizacji.
+   Standardowe przygotowanie dokumentu działa szybciej, bo nie uruchamia
+   analizy Bielik automatycznie. Użytkownik może osobno wybrać lekką kontrolę
+   heurystyczną albo głębszą kontrolę Bielik.
+
+2. Bielik tylko na żądanie.
+   Model Bielik jest używany jako dodatkowa analiza dokumentu, gdy użytkownik
+   świadomie wybierze ten tryb. Zwykłe przygotowanie i ponowne maskowanie nie
+   zmieniają dotychczasowego kontraktu przywracania wersji jawnej.
+
+3. Rozszerzona anonimizacja kancelarii KGL.
+   Fraza "Kancelaria Prawna Kantorowski, Głąb i Wspólnicy" jest traktowana jako
+   podmiot do ukrycia także wtedy, gdy występuje z inną formą prawną albo bez
+   formy prawnej.
+
+4. Spójne oznaczenie wydania.
+   Panel dodatku, manifest, instalator, pliki pakietu i instrukcje użytkownika
+   są oznaczone jako CSM for Word v1.3.
+
+Uwagi operacyjne
+
+- Reguły ręczne i raporty anonimizacji pozostają zapisywane lokalnie.
+- Mechanizm przywracania wersji jawnej nie został zmieniony.
+- Lekką kontrolę warto stosować jako szybki przegląd po przygotowaniu dokumentu.
+- Głębszą kontrolę Bielik warto uruchamiać dla dokumentów, które wymagają
+  dodatkowej analizy resztkowych danych.

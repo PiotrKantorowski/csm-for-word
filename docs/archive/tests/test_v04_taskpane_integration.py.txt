@@ -1,0 +1,77 @@
+"""ARCHIVED — alpha4 integration tests.
+
+These tests document the state of v0.3.0-alpha4 and are intentionally
+superseded by test_v05_taskpane_integration.py. They are skipped to
+preserve the historical record without polluting the test run.
+"""
+import pytest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+TASKPANE = (ROOT / "addin" / "taskpane.js").read_text(encoding="utf-8")
+HTML = (ROOT / "addin" / "taskpane.html").read_text(encoding="utf-8")
+API = (ROOT / "server" / "api.py").read_text(encoding="utf-8")
+
+_SKIP = pytest.mark.skip(reason="Superseded by test_v05_taskpane_integration.py (alpha5 archive)")
+
+
+@_SKIP
+def test_alpha4_loads_frontend_modules_before_taskpane():
+    state_idx = HTML.index("state-machine.js?v=0.3.0-alpha4")
+    bridge_idx = HTML.index("word-bridge.js?v=0.3.0-alpha4")
+    taskpane_idx = HTML.index("taskpane.js?v=0.3.0-alpha4")
+    assert state_idx < taskpane_idx
+    assert bridge_idx < taskpane_idx
+    assert "wersja 0.3.0-alpha4" in HTML
+
+
+@_SKIP
+def test_taskpane_uses_v3_state_machine_as_primary_state_source():
+    assert "readSafeModeSnapshot" in TASKPANE
+    assert "sm.readStateSnapshot" in TASKPANE
+    assert "sm.ensureCleanState" in TASKPANE
+    assert "sm.markMasking" in TASKPANE
+    assert "sm.markMasked" in TASKPANE
+    assert "sm.markRestoring" in TASKPANE
+    assert "sm.markRestored" in TASKPANE
+    assert "sm.markError" in TASKPANE
+    assert "getSetting(MODE_SETTING_KEY) === \"true\"" in TASKPANE  # legacy fallback only
+    assert "They are not used to migrate v0.2.x documents" in TASKPANE
+
+
+@_SKIP
+def test_taskpane_uses_word_bridge_but_keeps_legacy_paths_until_iteration_5():
+    for bridge_marker in [
+        "bridge.readTrackingMode",
+        "bridge.readBodyText",
+        "bridge.readBodyOoxml",
+        "bridge.replaceBodyWithText",
+        "bridge.replaceBodyWithOoxml",
+        "bridge.collectOoxmlParts",
+        "bridge.replaceOoxmlParts",
+        "bridge.applySearchReplacePairs",
+        "bridge.getCompressedDocumentBase64",
+    ]:
+        assert bridge_marker in TASKPANE
+
+    for fallback_marker in [
+        "Word.run",
+        "Office.context.document.getFileAsync",
+        "context.document.body.insertText",
+        "context.document.body.insertOoxml",
+        "target.body.search",
+    ]:
+        assert fallback_marker in TASKPANE
+
+
+@_SKIP
+def test_backend_and_panel_versions_are_alpha4():
+    assert 'APP_VERSION = "0.3.0-alpha4"' in API
+    assert 'const APP_VERSION = "0.3.0-alpha4"' in TASKPANE
+
+
+if __name__ == "__main__":
+    for name, fn in sorted(globals().items()):
+        if name.startswith("test_"):
+            fn()
+    print("OK: v0.3.0-alpha4 taskpane integration static tests passed")

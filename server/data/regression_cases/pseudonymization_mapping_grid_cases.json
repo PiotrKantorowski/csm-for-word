@@ -1,0 +1,314 @@
+[
+  {
+    "id": "person_inflected_pesel",
+    "category": "PERSON",
+    "text": "Na rzecz Pani Iwony Teresy Ustrzyckiej, PESEL: 90010112345, ustanawia się pełnomocnika.",
+    "expect_masked": [
+      "Iwony Teresy Ustrzyckiej",
+      "90010112345"
+    ],
+    "expected_categories": [
+      "PERSON",
+      "PESEL"
+    ]
+  },
+  {
+    "id": "person_common_word_surname_context",
+    "category": "PERSON",
+    "text": "Pani Mucha złożyła wniosek. Na stole siedziała mucha.",
+    "expect_masked": [
+      "Mucha"
+    ],
+    "expect_unmasked": [
+      "mucha"
+    ],
+    "expected_categories": [
+      "PERSON"
+    ]
+  },
+  {
+    "id": "company_without_suffix_party_context",
+    "category": "COMPANY",
+    "text": "Działając w imieniu Klienta – OLIMP LABORATORIES, pełnomocnik wnosi o zapłatę.",
+    "expect_masked": [
+      "OLIMP LABORATORIES"
+    ],
+    "expected_categories": [
+      "CONTRACTOR"
+    ]
+  },
+  {
+    "id": "legal_heading_not_company",
+    "category": "COMPANY",
+    "text": "UMOWA SPRZEDAŻY\nPOSTANOWIENIA KOŃCOWE",
+    "expect_unmasked": [
+      "UMOWA SPRZEDAŻY",
+      "POSTANOWIENIA KOŃCOWE"
+    ],
+    "not_expected_categories": [
+      "COMPANY",
+      "CONTRACTOR",
+      "COMPANY_ALIAS"
+    ]
+  },
+  {
+    "id": "company_role_not_swallowed",
+    "category": "COMPANY",
+    "text": "Pozwany Mucha sp. z o.o. wnosi odpowiedź na pozew.",
+    "expect_masked": [
+      "Mucha sp. z o.o."
+    ],
+    "expect_unmasked": [
+      "Pozwany"
+    ],
+    "expected_categories": [
+      "COMPANY"
+    ]
+  },
+  {
+    "id": "rural_address_and_locality",
+    "category": "ADDRESS",
+    "text": "Adres: Pustynia 84F, 39-200 Dębica. Powód zamieszkały w Pustyni.",
+    "expect_masked": [
+      "Pustynia 84F, 39-200 Dębica",
+      "Pustyni"
+    ],
+    "expected_categories": [
+      "ADDRESS_RURAL",
+      "ADDRESS"
+    ]
+  },
+  {
+    "id": "financial_doc_not_nip",
+    "category": "FINANCIAL_DOC_ID",
+    "text": "Faktura VAT numer: 1234567890 została doręczona kontrahentowi.",
+    "expect_masked": [
+      "1234567890"
+    ],
+    "expected_categories": [
+      "FINANCIAL_DOC_ID"
+    ],
+    "not_expected_categories": [
+      "NIP"
+    ]
+  },
+  {
+    "id": "internet_and_secret_identifiers",
+    "category": "SECRET",
+    "text": "Panel klienta: https://panel.example.pl, login: admin.test, token API: sk-proj-abcDEF1234567890XYZ.",
+    "expect_masked": [
+      "https://panel.example.pl",
+      "admin.test",
+      "sk-proj-abcDEF1234567890XYZ"
+    ],
+    "expected_categories": [
+      "URL",
+      "LOGIN",
+      "SECRET"
+    ]
+  },
+  {
+    "id": "registry_identifiers_suite",
+    "category": "LEGAL_IDENTIFIERS",
+    "text": "PESEL: 90010112345, NIP: 123-456-32-18, REGON: 123456789, KRS 0000123456.",
+    "expect_masked": [
+      "90010112345",
+      "123-456-32-18",
+      "123456789",
+      "0000123456"
+    ],
+    "expected_categories": [
+      "PESEL",
+      "NIP",
+      "REGON",
+      "KRS"
+    ]
+  },
+  {
+    "id": "identity_documents_suite",
+    "category": "IDENTITY_DOCUMENTS",
+    "text": "Dowód osobisty ABC 123456 oraz paszport AB1234567.",
+    "expect_masked": [
+      "ABC 123456",
+      "AB1234567"
+    ],
+    "expected_categories": [
+      "IDCARD_PL_CONTEXT",
+      "PASSPORT_CONTEXT"
+    ]
+  },
+  {
+    "id": "court_and_signature_suite",
+    "category": "COURT",
+    "text": "Sąd Okręgowy w Rzeszowie, sygn. akt V GC 55/25.",
+    "expect_masked": [
+      "Sąd Okręgowy w Rzeszowie",
+      "sygn. akt V GC 55/25"
+    ],
+    "expected_categories": [
+      "COURT",
+      "SYGNATURA"
+    ]
+  },
+  {
+    "id": "case_ref_masks_full_identifier",
+    "category": "CASE_NUMBER",
+    "text": "nr sprawy ABC.123.4.2026. Kolejny akapit pozostaje jawny.",
+    "expect_masked": [
+      "ABC.123.4.2026"
+    ],
+    "expect_unmasked": [
+      "Kolejny akapit pozostaje jawny"
+    ],
+    "expected_categories": [
+      "CASE_REF"
+    ]
+  },
+  {
+    "id": "notary_land_property_suite",
+    "category": "REAL_ESTATE_IDENTIFIER",
+    "text": "Rep. A nr 1234/2026, KW RZ1Z/00012345/6, działka nr 123/4.",
+    "expect_masked": [
+      "Rep. A nr 1234/2026",
+      "RZ1Z/00012345/6",
+      "123/4"
+    ],
+    "expected_categories": [
+      "REPERTORIUM",
+      "KW",
+      "PROPERTY_ID"
+    ]
+  },
+  {
+    "id": "internet_url_keeps_punctuation",
+    "category": "INTERNET",
+    "text": "Kontakt: jan.nowak@example.pl, +48 600 700 800, https://panel.example.pl, example.pl.",
+    "expect_masked": [
+      "jan.nowak@example.pl",
+      "+48 600 700 800",
+      "https://panel.example.pl",
+      "example.pl"
+    ],
+    "expect_unmasked": [
+      ", [DOMENA_2]."
+    ],
+    "expected_categories": [
+      "EMAIL",
+      "PHONE",
+      "URL",
+      "DOMAIN"
+    ]
+  },
+  {
+    "id": "birth_data_and_vehicle_reg",
+    "category": "DATE_SENSITIVE",
+    "text": "IP 192.168.1.1, data urodzenia 1 stycznia 1980 r., nr rej. RZE 12345.",
+    "expect_masked": [
+      "192.168.1.1",
+      "1 stycznia 1980 r",
+      "RZE 12345"
+    ],
+    "expected_categories": [
+      "IP_ADDRESS",
+      "BIRTH_DATA",
+      "VEHICLE_ID"
+    ]
+  },
+  {
+    "id": "bank_and_order_suite",
+    "category": "BANK_ACCOUNT",
+    "text": "Rachunek bankowy PL61109010140000071219812874, zamówienie nr ORD-2026-001.",
+    "expect_masked": [
+      "PL61109010140000071219812874",
+      "ORD-2026-001"
+    ],
+    "expected_categories": [
+      "IBAN",
+      "PROJECT_ID"
+    ]
+  },
+  {
+    "id": "jdg_pod_nazwa_natural_phrasing",
+    "category": "COMPANY",
+    "text": "Anna Nowak, prowadząca działalność pod nazwą ANNA NOWAK STUDIO GRAFICZNE, wniosła pozew.",
+    "expect_masked": [
+      "Anna Nowak",
+      "ANNA NOWAK STUDIO GRAFICZNE"
+    ],
+    "expected_categories": [
+      "PERSON",
+      "CONTRACTOR"
+    ]
+  },
+  {
+    "id": "jdg_prowadzacy_pod_firma_natural_phrasing",
+    "category": "COMPANY",
+    "text": "Jan Kowalski, prowadzący działalność gospodarczą pod firmą JAN KOWALSKI USŁUGI BUDOWLANE, wniósł pozew.",
+    "expect_masked": [
+      "Jan Kowalski",
+      "JAN KOWALSKI USŁUGI BUDOWLANE"
+    ],
+    "expected_categories": [
+      "PERSON",
+      "CONTRACTOR"
+    ]
+  },
+  {
+    "id": "company_pphu_trade_prefix",
+    "category": "COMPANY",
+    "text": "Sprzedawcą jest P.P.H.U. \"KOWEX\" Jan Kowalski z siedzibą w Krośnie.",
+    "expect_masked": [
+      "P.P.H.U. \"KOWEX\" Jan Kowalski"
+    ],
+    "expected_categories": [
+      "COMPANY"
+    ]
+  },
+  {
+    "id": "company_ppuh_fhu_trade_prefix",
+    "category": "COMPANY",
+    "text": "Wykonawcą jest PPUH BUDMEX, a podwykonawcą F.H.U. NOWEX.",
+    "expect_masked": [
+      "PPUH BUDMEX",
+      "F.H.U. NOWEX"
+    ],
+    "expected_categories": [
+      "COMPANY"
+    ]
+  },
+  {
+    "id": "person_initial_surname",
+    "category": "PERSON",
+    "text": "W sprawie wystąpił J. Kowalski, reprezentowany przez pełnomocnika.",
+    "expect_masked": [
+      "J. Kowalski"
+    ],
+    "expected_categories": [
+      "PERSON"
+    ]
+  },
+  {
+    "id": "bank_foreign_iban_de",
+    "category": "BANK_ACCOUNT",
+    "text": "Płatność należy przekazać na rachunek DE89370400440532013000.",
+    "expect_masked": [
+      "DE89370400440532013000"
+    ],
+    "expected_categories": [
+      "IBAN"
+    ]
+  },
+  {
+    "id": "court_inflected_instrumental",
+    "category": "COURT",
+    "text": "Postępowanie toczy się przed Sądem Rejonowym w Dębicy, sygn. akt II Ca 1234/26/3.",
+    "expect_masked": [
+      "Sądem Rejonowym w Dębicy",
+      "sygn. akt II Ca 1234/26/3"
+    ],
+    "expected_categories": [
+      "COURT",
+      "SYGNATURA"
+    ]
+  }
+]

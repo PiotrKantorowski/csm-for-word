@@ -1,0 +1,90 @@
+name: QA and Build Installer
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  qa:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '8.0.x'
+          global-json-file: global.json
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Install Python dependencies
+        run: python -m pip install -r server\requirements.txt
+
+      - name: Restore sidecar
+        run: dotnet restore sidecar\CSM.RevisionSidecar\CSM.RevisionSidecar.csproj
+
+      - name: Build sidecar
+        run: dotnet build sidecar\CSM.RevisionSidecar\CSM.RevisionSidecar.csproj -c Release --no-restore
+
+      - name: Test sidecar
+        run: dotnet test sidecar\CSM.RevisionSidecar.Tests\CSM.RevisionSidecar.Tests.csproj -c Release --no-restore
+
+      - name: Set sidecar env
+        run: |
+          $exe = Get-ChildItem -Recurse "sidecar\CSM.RevisionSidecar\bin\Release" -Filter "CSM.RevisionSidecar.exe" | Select-Object -First 1 -ExpandProperty FullName
+          if (-not $exe) { throw "Compiled sidecar not found" }
+          echo "CSM_REVISION_SIDECAR_CMD=$exe" >> $env:GITHUB_ENV
+
+      - name: Run sidecar integration tests
+        run: python -m pytest -q tests\test_revision_sidecar_integration.py
+
+      - name: Lint static assets
+        run: npm run lint --silent
+
+      - name: Run full test suite
+        run: python -m pytest -q
+
+      - name: Build static assets
+        run: npm run build --silent
+
+  build-installer:
+    needs: qa
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress -y
+
+      - name: Build installer
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File installer\build-csm-setup.ps1
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: CSM-Setup-v1.6
+          path: installer\output\CSM-Setup-v1.6.exe
+          if-no-files-found: error
+          retention-days: 14

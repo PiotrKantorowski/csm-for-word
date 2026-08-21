@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "description": "Sample of Polish surnames for documentation and testing. The full runtime gazetteer is embedded in server/pl_gazetteers.py::SURNAMES (8,636 entries). This sample exists for illustration and test fixture purposes.",
+  "source_ref": "pesel_surnames",
+  "generated_at": "2026-05-20",
+  "entries": [
+    "Adamczyk", "Andrzejewski", "Borowski", "Brzozowski", "Budny",
+    "Chmielewski", "Dąbrowski", "Grabowski", "Jankowski", "Jaworski",
+    "Kaczmarek", "Kamińska", "Kowalski", "Kowalska", "Kozłowski",
+    "Lewandowski", "Mazur", "Michalski", "Nowakowski", "Nowak",
+    "Piotrowska", "Piotrowski", "Sikora", "Szymański", "Szymańska",
+    "Wiśniewski", "Wojciechowski", "Wójcik", "Woźniak", "Zielińska",
+    "Zieliński", "Czerwińska", "Czerwiński", "Górska", "Górski",
+    "Kwiatkowski", "Malinowski", "Olejnik", "Pawlak", "Rutkowski"
+  ]
+}

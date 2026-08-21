@@ -1,0 +1,42 @@
+{
+  "save_map": {
+    "rc34": "2629c1870f38a426fbe9ae105e236ade500a3aeba7ef64cb8b3819170eea2678",
+    "rc35": "2629c1870f38a426fbe9ae105e236ade500a3aeba7ef64cb8b3819170eea2678",
+    "identical": true
+  },
+  "load_map": {
+    "rc34": "5969640af1b6f5297887dded9c05b8398e77c058f9d72d9dff67fdab51b364b5",
+    "rc35": "5969640af1b6f5297887dded9c05b8398e77c058f9d72d9dff67fdab51b364b5",
+    "identical": true
+  },
+  "mask_ooxml": {
+    "rc34": "1781a47327dc2e4ae50917ebc924232f66fa85d79b20ff04d79f87da26d77b30",
+    "rc35": "1781a47327dc2e4ae50917ebc924232f66fa85d79b20ff04d79f87da26d77b30",
+    "identical": true
+  },
+  "restore_ooxml": {
+    "rc34": "456c62050d9d42320c5d97e5fad2df42633697e445a4403e037b83f91ef6d1c3",
+    "rc35": "456c62050d9d42320c5d97e5fad2df42633697e445a4403e037b83f91ef6d1c3",
+    "identical": true
+  },
+  "restore_ooxml_parts": {
+    "rc34": "8d272368cf2edbb166a67fc5488775b444bfd1a0aad392f513173ccb1a85e59f",
+    "rc35": "8d272368cf2edbb166a67fc5488775b444bfd1a0aad392f513173ccb1a85e59f",
+    "identical": true
+  },
+  "restore_ooxml_package_bytes": {
+    "rc34": "ef99768b4aaffc30f288248d715e70a3c4b11ee13eff11fd3515998adc02eb72",
+    "rc35": "ef99768b4aaffc30f288248d715e70a3c4b11ee13eff11fd3515998adc02eb72",
+    "identical": true
+  },
+  "_restore_text_value": {
+    "rc34": "7636f28c561ca1a87cd1fe4a86c0abafe2fd7d96775992aeb2b21c878a48d92b",
+    "rc35": "7636f28c561ca1a87cd1fe4a86c0abafe2fd7d96775992aeb2b21c878a48d92b",
+    "identical": true
+  },
+  "mask_ooxml_package_bytes": {
+    "rc34": "8a323610b180b2040716bf6d6af2297130fa3094d18d8312c19be6d371597067",
+    "rc35": "8a323610b180b2040716bf6d6af2297130fa3094d18d8312c19be6d371597067",
+    "identical": true
+  }
+}

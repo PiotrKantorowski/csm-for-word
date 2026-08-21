@@ -1,0 +1,355 @@
+{
+  "description": "Lightweight Polish first-name inflection and diminutive lexicon for CSM legal anonymization. No client data.",
+  "names": {
+    "Adam": {
+      "forms": [
+        "Adama",
+        "Adamowi",
+        "Adamem",
+        "Adamie"
+      ]
+    },
+    "Aleksander": {
+      "forms": [
+        "Aleksandra",
+        "Aleksandrowi",
+        "Aleksandrem",
+        "Aleksandrze"
+      ],
+      "diminutives": [
+        "Olek",
+        "Olka",
+        "Olkowi",
+        "Olkiem",
+        "Olku"
+      ]
+    },
+    "Anna": {
+      "forms": [
+        "Anny",
+        "Annie",
+        "Anną",
+        "Anno"
+      ],
+      "diminutives": [
+        "Ania",
+        "Ani",
+        "Anią",
+        "Anię",
+        "Aniu",
+        "Anka",
+        "Anki",
+        "Ankę",
+        "Anką"
+      ]
+    },
+    "Barbara": {
+      "forms": [
+        "Barbary",
+        "Barbarze",
+        "Barbarą"
+      ],
+      "diminutives": [
+        "Basia",
+        "Basi",
+        "Basią",
+        "Basię",
+        "Baśka",
+        "Baśki",
+        "Baśkę"
+      ]
+    },
+    "Bernardeta": {
+      "forms": [
+        "Bernardety",
+        "Bernardecie",
+        "Bernardetą",
+        "Bernardetę"
+      ],
+      "diminutives": [
+        "Berni",
+        "Bernadetka"
+      ]
+    },
+    "Dominik": {
+      "forms": [
+        "Dominika",
+        "Dominikowi",
+        "Dominikiem",
+        "Dominiku"
+      ]
+    },
+    "Ewa": {
+      "forms": [
+        "Ewy",
+        "Ewie",
+        "Ewą",
+        "Ewę"
+      ]
+    },
+    "Grzegorz": {
+      "forms": [
+        "Grzegorza",
+        "Grzegorzowi",
+        "Grzegorzem",
+        "Grzegorzu"
+      ],
+      "diminutives": [
+        "Grzesiek",
+        "Grześka",
+        "Grześkiem",
+        "Grzesia"
+      ]
+    },
+    "Jakub": {
+      "forms": [
+        "Jakuba",
+        "Jakubowi",
+        "Jakubem",
+        "Jakubie"
+      ],
+      "diminutives": [
+        "Kuba",
+        "Kuby",
+        "Kubie",
+        "Kubą",
+        "Kubę",
+        "Kubuś",
+        "Kubusia",
+        "Kubusiem"
+      ]
+    },
+    "Jan": {
+      "forms": [
+        "Jana",
+        "Janowi",
+        "Janem",
+        "Janie"
+      ],
+      "diminutives": [
+        "Janek",
+        "Janka",
+        "Jankowi",
+        "Jankiem",
+        "Jasiu",
+        "Jasia",
+        "Jaś",
+        "Jasia"
+      ]
+    },
+    "Joanna": {
+      "forms": [
+        "Joanny",
+        "Joannie",
+        "Joanną",
+        "Joannę"
+      ],
+      "diminutives": [
+        "Asia",
+        "Asi",
+        "Asią",
+        "Asię",
+        "Aśka",
+        "Aśki",
+        "Aśkę"
+      ]
+    },
+    "Julia": {
+      "forms": [
+        "Julii",
+        "Julią",
+        "Julię"
+      ],
+      "diminutives": [
+        "Julka",
+        "Julki",
+        "Julkę",
+        "Julką"
+      ]
+    },
+    "Kamil": {
+      "forms": [
+        "Kamila",
+        "Kamilowi",
+        "Kamilem",
+        "Kamilu"
+      ]
+    },
+    "Karol": {
+      "forms": [
+        "Karola",
+        "Karolowi",
+        "Karolem",
+        "Karolu"
+      ]
+    },
+    "Katarzyna": {
+      "forms": [
+        "Katarzyny",
+        "Katarzynie",
+        "Katarzyną",
+        "Katarzynę"
+      ],
+      "diminutives": [
+        "Kasia",
+        "Kasi",
+        "Kasią",
+        "Kasię",
+        "Kaśka",
+        "Kaśki",
+        "Kaśkę"
+      ]
+    },
+    "Krzysztof": {
+      "forms": [
+        "Krzysztofa",
+        "Krzysztofowi",
+        "Krzysztofem",
+        "Krzysztofie"
+      ],
+      "diminutives": [
+        "Krzysiek",
+        "Krzyśka",
+        "Krzyśkiem",
+        "Krzyś"
+      ]
+    },
+    "Magdalena": {
+      "forms": [
+        "Magdaleny",
+        "Magdalenie",
+        "Magdaleną",
+        "Magdalenę"
+      ],
+      "diminutives": [
+        "Magda",
+        "Magdy",
+        "Magdzie",
+        "Magdą",
+        "Magdę",
+        "Madzia",
+        "Madzi",
+        "Madzią"
+      ]
+    },
+    "Marek": {
+      "forms": [
+        "Marka",
+        "Markowi",
+        "Markiem",
+        "Marku"
+      ]
+    },
+    "Maria": {
+      "forms": [
+        "Marii",
+        "Marią",
+        "Marię"
+      ],
+      "diminutives": [
+        "Marysia",
+        "Marysi",
+        "Marysią",
+        "Marysię"
+      ]
+    },
+    "Marta": {
+      "forms": [
+        "Marty",
+        "Marcie",
+        "Martą",
+        "Martę"
+      ]
+    },
+    "Michał": {
+      "forms": [
+        "Michała",
+        "Michałowi",
+        "Michałem",
+        "Michale"
+      ],
+      "ascii_forms": [
+        "Michal",
+        "Michala",
+        "Michalowi",
+        "Michalem"
+      ]
+    },
+    "Natalia": {
+      "forms": [
+        "Natalii",
+        "Natalią",
+        "Natalię"
+      ],
+      "diminutives": [
+        "Nata",
+        "Naty",
+        "Natą",
+        "Natkę",
+        "Natka"
+      ]
+    },
+    "Paweł": {
+      "forms": [
+        "Pawła",
+        "Pawłowi",
+        "Pawłem",
+        "Pawle"
+      ],
+      "ascii_forms": [
+        "Pawel",
+        "Pawla",
+        "Pawlowi",
+        "Pawlem"
+      ]
+    },
+    "Piotr": {
+      "forms": [
+        "Piotra",
+        "Piotrowi",
+        "Piotrem",
+        "Piotrze"
+      ],
+      "diminutives": [
+        "Piotrek",
+        "Piotrka",
+        "Piotrkowi",
+        "Piotrkiem",
+        "Piotrku",
+        "Piotruś",
+        "Piotrusia",
+        "Piotrusiem"
+      ]
+    },
+    "Tomasz": {
+      "forms": [
+        "Tomasza",
+        "Tomaszowi",
+        "Tomaszem",
+        "Tomaszu"
+      ],
+      "diminutives": [
+        "Tomek",
+        "Tomka",
+        "Tomkowi",
+        "Tomkiem",
+        "Tomku"
+      ]
+    },
+    "Karolina": {
+      "forms": [
+        "Karoliny",
+        "Karolinie",
+        "Karoliną",
+        "Karolinę"
+      ],
+      "diminutives": [
+        "Karo",
+        "Karolcia",
+        "Karolci",
+        "Karolcią",
+        "Karolcię"
+      ]
+    }
+  }
+}

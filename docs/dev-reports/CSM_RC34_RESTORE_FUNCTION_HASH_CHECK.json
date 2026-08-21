@@ -1,0 +1,37 @@
+{
+  "save_map": {
+    "rc33_sha256": "2629c1870f38a426fbe9ae105e236ade500a3aeba7ef64cb8b3819170eea2678",
+    "rc34_sha256": "2629c1870f38a426fbe9ae105e236ade500a3aeba7ef64cb8b3819170eea2678",
+    "unchanged": true
+  },
+  "load_map": {
+    "rc33_sha256": "5969640af1b6f5297887dded9c05b8398e77c058f9d72d9dff67fdab51b364b5",
+    "rc34_sha256": "5969640af1b6f5297887dded9c05b8398e77c058f9d72d9dff67fdab51b364b5",
+    "unchanged": true
+  },
+  "mask_ooxml": {
+    "rc33_sha256": "1781a47327dc2e4ae50917ebc924232f66fa85d79b20ff04d79f87da26d77b30",
+    "rc34_sha256": "1781a47327dc2e4ae50917ebc924232f66fa85d79b20ff04d79f87da26d77b30",
+    "unchanged": true
+  },
+  "restore_ooxml": {
+    "rc33_sha256": "456c62050d9d42320c5d97e5fad2df42633697e445a4403e037b83f91ef6d1c3",
+    "rc34_sha256": "456c62050d9d42320c5d97e5fad2df42633697e445a4403e037b83f91ef6d1c3",
+    "unchanged": true
+  },
+  "restore_ooxml_parts": {
+    "rc33_sha256": "8d272368cf2edbb166a67fc5488775b444bfd1a0aad392f513173ccb1a85e59f",
+    "rc34_sha256": "8d272368cf2edbb166a67fc5488775b444bfd1a0aad392f513173ccb1a85e59f",
+    "unchanged": true
+  },
+  "restore_ooxml_package_bytes": {
+    "rc33_sha256": "ef99768b4aaffc30f288248d715e70a3c4b11ee13eff11fd3515998adc02eb72",
+    "rc34_sha256": "ef99768b4aaffc30f288248d715e70a3c4b11ee13eff11fd3515998adc02eb72",
+    "unchanged": true
+  },
+  "_restore_text_value": {
+    "rc33_sha256": "7636f28c561ca1a87cd1fe4a86c0abafe2fd7d96775992aeb2b21c878a48d92b",
+    "rc34_sha256": "7636f28c561ca1a87cd1fe4a86c0abafe2fd7d96775992aeb2b21c878a48d92b",
+    "unchanged": true
+  }
+}

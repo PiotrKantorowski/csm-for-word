@@ -1,0 +1,8 @@
+CSM v0.4.2
+
+Najważniejsze zmiany:
+- podgląd lokalnych mapowań w panelu Word;
+- ręczne reguły: zawsze anonimizuj, nigdy nie anonimizuj, zmień kategorię;
+- regenerowanie kopii _CSM_anon.docx z oryginalnego snapshotu sesji po zmianie reguł;
+- nowe API: /v4/map/preview oraz /v4/current/remask-session;
+- testy regresyjne dla kontroli użytkownika.

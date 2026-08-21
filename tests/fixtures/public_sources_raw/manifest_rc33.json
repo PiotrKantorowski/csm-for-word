@@ -1,0 +1,38 @@
+{
+  "name": "CSM RC33 source-reference manifest",
+  "version": "2026-07-04-rc33",
+  "scope_note": "RC33 intentionally excludes court judgments and blank forms. It uses source structures from public contract registers, administrative-decision portals, procurement contracts/templates and public-aid search/report structures. Runtime benchmark cases are synthetic or public-source-derived and contain no client documents.",
+  "sources": [
+    {
+      "id": "brpo_contract_register",
+      "url": "https://bip.brpo.gov.pl/pl/rejestr-umow",
+      "used_for": ["Kontrahent/nazwa rows", "natural-person contractors", "company contractors", "law-office/trade-name contractor rows", "contract metadata labels"]
+    },
+    {
+      "id": "uodo_decision_portal",
+      "url": "https://orzeczenia.uodo.gov.pl/search",
+      "used_for": ["Decyzja Prezesa UODO nr ...", "DKN/DS/DKE decision-reference formats", "administrative-decision headings"]
+    },
+    {
+      "id": "uokik_decision_database",
+      "url": "https://www-1.uokik.gov.pl/bp/dec_prez.nsf/",
+      "used_for": ["UOKiK decision database context", "Decyzja Prezesa UOKiK nr ...", "entrepreneur/company-party decision contexts"]
+    },
+    {
+      "id": "gov_procurement_contract",
+      "url": "https://www.gov.pl/attachment/5f3dc738-01c3-41b2-ad94-41c0a243d268",
+      "used_for": ["umowa/zlecenie clauses", "Zleceniodawca/Zleceniobiorca", "contract numbers", "payment clauses"]
+    },
+    {
+      "id": "parp_contract_template",
+      "url": "https://www.parp.gov.pl/storage/bip/zamowienia/56740/Wz%C3%B3r%20umowy%20zlecenia.pdf",
+      "used_for": ["public procurement contract template", "civil contract wording", "invoice/payment identifiers"]
+    },
+    {
+      "id": "sudop_public_aid_search",
+      "url": "https://sudop.uokik.gov.pl/search/aidBeneficiary",
+      "used_for": ["NIP-based beneficiary search", "Nazwa beneficjenta", "Nazwa przedsiębiorcy", "public-aid reference-number contexts"]
+    }
+  ],
+  "download_note": "The fixture records source URLs and public-source patterns. Binary source downloads are not required for test execution and were not added for RC33 where remote DNS access was unavailable in the build container. Existing RC31 public_sources_raw files remain intact."
+}

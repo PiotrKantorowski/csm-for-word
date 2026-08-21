@@ -1,0 +1,74 @@
+{
+  "name": "CSM RC33 public business/legal corpus benchmark",
+  "version": "2026-07-04-rc33",
+  "description": "Benchmark built without client documents, court judgments or blank forms. It uses structures observed in public contract registers, public administrative-decision portals, public procurement contract templates and SUDOP-like public-aid search pages, with synthetic or public-source-derived identifiers.",
+  "excluded_sources": [
+    "court judgments",
+    "blank court/administrative forms"
+  ],
+  "sources": {
+    "brpo_contract_register": {
+      "description": "Public contract-register entries with Kontrahent/nazwa rows, natural persons, companies, law offices, trade names and contract metadata.",
+      "url": "https://bip.brpo.gov.pl/pl/rejestr-umow"
+    },
+    "uodo_decision_portal": {
+      "description": "Public portal showing administrative decisions of the President of UODO with decision-number patterns such as DKN.5112.33.2022.",
+      "url": "https://orzeczenia.uodo.gov.pl/search"
+    },
+    "uokik_decision_database": {
+      "description": "Public UOKiK decision database; used for administrative-decision number structure and entrepreneur/company-party contexts.",
+      "url": "https://www-1.uokik.gov.pl/bp/dec_prez.nsf/"
+    },
+    "gov_procurement_contracts": {
+      "description": "Public procurement/contract templates, not blank identification forms; used for contract numbers, parties, payment clauses and contractor rows.",
+      "url": "https://www.gov.pl/attachment/5f3dc738-01c3-41b2-ad94-41c0a243d268"
+    },
+    "parp_contract_template": {
+      "description": "Public contract template used for zleceniodawca/zleceniobiorca, B2B parties, contract numbers and settlement identifiers.",
+      "url": "https://www.parp.gov.pl/storage/bip/zamowienia/56740/Wz%C3%B3r%20umowy%20zlecenia.pdf"
+    },
+    "sudop_public_aid_search": {
+      "description": "SUDOP search/result structures for beneficiary name, entrepreneur name, NIP and public-aid reference numbers.",
+      "url": "https://sudop.uokik.gov.pl/search/aidBeneficiary"
+    }
+  },
+  "cases": [
+    {"id":"brpo_person_title_01","profile":"contract_register","input":"Kontrahent/nazwa: Pani Klaudia Borczyk\nData zawarcia umowy: 2025-12-17","must_mask":["Klaudia Borczyk"],"must_keep":["Kontrahent/nazwa:","Data zawarcia umowy"],"roundtrip_required":true},
+    {"id":"brpo_person_title_02","profile":"contract_register","input":"Kontrahent/nazwa: Pan Sebastian Skuza\nPrzedmiot umowy: wykonanie ekspertyzy.","must_mask":["Sebastian Skuza"],"must_keep":["Przedmiot umowy"],"roundtrip_required":true},
+    {"id":"brpo_company_suffix_01","profile":"contract_register","input":"Kontrahent/nazwa: Kolporter spółka z ograniczoną odpowiedzialnością\nWartość umowy: 31096.85","must_mask":["Kolporter"],"must_keep":["Wartość umowy"],"roundtrip_required":true},
+    {"id":"brpo_company_dotted_01","profile":"contract_register","input":"Kontrahent/nazwa: G.L.M. Spółka z ograniczona odpowiedzialnością\nAutor informacji: Wydział Zamówień Publicznych","must_mask":["G.L.M."],"must_keep":["Autor informacji"],"roundtrip_required":true},
+    {"id":"brpo_company_sa_01","profile":"contract_register","input":"Kontrahent/nazwa: Garmond Press S.A.\nOkres obowiązywania: 2026-01-01","must_mask":["Garmond Press"],"must_keep":["Okres obowiązywania"],"roundtrip_required":true},
+    {"id":"brpo_quoted_company_01","profile":"contract_register","input":"Kontrahent/nazwa: \"JARD\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ\nPrzedmiot umowy: dostawa mebli.","must_mask":["JARD"],"must_keep":["dostawa mebli"],"roundtrip_required":true},
+    {"id":"brpo_software_company_01","profile":"contract_register","input":"Kontrahent/nazwa: One Dynamics Sp. z o.o.\nPrzedmiotem zamówienia jest dostarczenie subskrypcji Dynamics 365.","must_mask":["One Dynamics"],"must_keep":["Dynamics 365"],"roundtrip_required":true},
+    {"id":"brpo_jdg_trade_01","profile":"contract_register","input":"Kontrahent/nazwa: Mariusz Jaworski prowadzący działalność gospodarczą pod firmą „Autopromo”, Warszawa\nData zawarcia umowy: 2026-06-09","must_mask":["Mariusz Jaworski","Autopromo"],"must_keep":["Data zawarcia umowy"],"roundtrip_required":true},
+    {"id":"brpo_jdg_trade_02","profile":"contract_register","input":"Kontrahent/nazwa: Bauza.pl MACIEJ BAUZA\nPrzedmiot umowy: usługa informatyczna.","must_mask":["Bauza.pl","MACIEJ BAUZA"],"must_keep":["usługa informatyczna"],"roundtrip_required":true},
+    {"id":"brpo_law_office_01","profile":"contract_register","input":"Kontrahent/nazwa: „Kancelaria Adwokacka Grzegorz Wrona”, Warszawa\nPrzedmiot umowy: szkolenie hybrydowe.","must_mask":["Kancelaria Adwokacka","Grzegorz Wrona"],"must_keep":["szkolenie hybrydowe"],"roundtrip_required":true},
+    {"id":"brpo_person_hyphen_01","profile":"contract_register","input":"Kontrahent/nazwa: Barbara Szatur-Jaworska, Warszawa\nPrzedmiot umowy: przygotowanie opracowań.","must_mask":["Barbara Szatur-Jaworska"],"must_keep":["przygotowanie opracowań"],"roundtrip_required":true},
+
+    {"id":"uodo_decision_01","profile":"administrative_decision","input":"Decyzja Prezesa UODO nr DKN.5112.33.2022 dotyczy administratora ABC sp. z o.o. z siedzibą w Warszawie.","must_mask":["DKN.5112.33.2022","ABC sp. z o.o.","Warszawie"],"must_keep":["Decyzja Prezesa UODO nr","dotyczy administratora"],"roundtrip_required":true},
+    {"id":"uodo_decision_02","profile":"administrative_decision","input":"Decyzja Prezesa UODO nr DS.523.1901.2022 została wydana po postępowaniu wobec NOVA DATA S.A.","must_mask":["DS.523.1901.2022","NOVA DATA S.A."],"must_keep":["Decyzja Prezesa UODO nr","została wydana"],"roundtrip_required":true},
+    {"id":"uodo_decision_03","profile":"administrative_decision","input":"Decyzja Prezesa UODO nr DKE.561.7.2025 obejmuje sektor prywatny i dotyczy spółki OMEGA sp. z o.o.","must_mask":["DKE.561.7.2025","OMEGA sp. z o.o."],"must_keep":["sektor prywatny"],"roundtrip_required":true},
+    {"id":"uodo_decision_no_false_permit_01","profile":"administrative_decision_false_positive","input":"Decyzja Prezesa UODO nr DKN.5131.17.2025 dotyczy naruszenia ochrony danych.","must_mask":["DKN.5131.17.2025"],"must_keep":["Decyzja Prezesa UODO nr","Prezesa UODO"],"must_not_create":["Prezesa"],"roundtrip_required":true},
+    {"id":"uokik_decision_01","profile":"administrative_decision","input":"Decyzja Prezesa UOKiK nr DOZIK-1/2026 dotyczy przedsiębiorcy ALFA sp. z o.o.","must_mask":["DOZIK-1/2026","ALFA sp. z o.o."],"must_keep":["Decyzja Prezesa UOKiK nr"],"roundtrip_required":true},
+    {"id":"admin_decision_short_label_01","profile":"administrative_decision","input":"Nr decyzji: RBG-12/2025. Stroną postępowania była BETA spółka akcyjna.","must_mask":["RBG-12/2025","BETA spółka akcyjna"],"must_keep":["Nr decyzji:"],"roundtrip_required":true},
+
+    {"id":"gov_contract_number_01","profile":"procurement_contract","input":"Umowa nr GDDKIA-OSZ.2411.4.2025 została zawarta z Wykonawcą.","must_mask":["GDDKIA-OSZ.2411.4.2025"],"must_keep":["Umowa nr","została zawarta"],"roundtrip_required":true},
+    {"id":"gov_contract_number_02","profile":"procurement_contract","input":"Nr umowy: BRPO-WZP.261.123.2026. Przedmiotem Umowy jest dostawa materiałów promocyjnych.","must_mask":["BRPO-WZP.261.123.2026"],"must_keep":["Przedmiotem Umowy"],"roundtrip_required":true},
+    {"id":"gov_contract_number_03","profile":"procurement_contract","input":"Umowa nr GDDKiA-O.Sz.D-3.2411.4.2025 została zawarta na okres 12 miesięcy.","must_mask":["GDDKiA-O.Sz.D-3.2411.4.2025"],"must_keep":["12 miesięcy"],"roundtrip_required":true},
+    {"id":"parp_contract_party_01","profile":"procurement_contract","input":"Zleceniobiorca/nazwa: Anna Zielińska-Krawczyk\nRachunek bankowy Wykonawcy: 12 1020 1026 0000 0422 7020 1111.","must_mask":["Anna Zielińska-Krawczyk","12 1020 1026 0000 0422 7020 1111"],"must_keep":["Rachunek bankowy Wykonawcy"],"roundtrip_required":true},
+    {"id":"parp_contract_party_02","profile":"procurement_contract","input":"Wykonawca/nazwa: F.H.U. NOVA Jan Kowalski\nNIP: 5210000000 REGON: 012345678","must_mask":["F.H.U. NOVA Jan Kowalski","5210000000","012345678"],"must_keep":["Wykonawca/nazwa:"],"roundtrip_required":true},
+    {"id":"parp_financial_doc_01","profile":"procurement_contract","input":"Faktura VAT nr FV/12/06/2026 została wystawiona przez Wykonawcę.","must_mask":["FV/12/06/2026"],"must_keep":["Faktura VAT nr"],"roundtrip_required":true},
+
+    {"id":"sudop_beneficiary_01","profile":"public_aid","input":"Nazwa beneficjenta: Janina Zielińska-Krawczyk NIP 6781234567, wielkość przedsiębiorcy: mikroprzedsiębiorca.","must_mask":["Janina Zielińska-Krawczyk","6781234567"],"must_keep":["wielkość przedsiębiorcy"],"roundtrip_required":true},
+    {"id":"sudop_beneficiary_02","profile":"public_aid","input":"Nazwa przedsiębiorcy: NOVA-TECH spółka z ograniczoną odpowiedzialnością, NIP 5250000000, REGON 012345678.","must_mask":["NOVA-TECH","5250000000","012345678"],"must_keep":["Nazwa przedsiębiorcy:"],"roundtrip_required":true},
+    {"id":"sudop_reference_01","profile":"public_aid","input":"Numer referencyjny środka pomocowego SA.12345 został wskazany w raporcie SUDOP.","must_mask":["SA.12345"],"must_keep":["Numer referencyjny środka pomocowego"],"roundtrip_required":true},
+    {"id":"sudop_reference_02","profile":"public_aid","input":"Identyfikator pomocy SA.98765 przypisano beneficjentowi OMEGA sp. z o.o.","must_mask":["SA.98765","OMEGA sp. z o.o."],"must_keep":["Identyfikator pomocy"],"roundtrip_required":true},
+
+    {"id":"b2b_contact_bundle_01","profile":"b2b_contract","input":"Kontakt po stronie Wykonawcy: tel. 501 222 333, email biuro@autopromo.pl, login panelu autopromo_admin.","must_mask":["501 222 333","biuro@autopromo.pl","autopromo_admin"],"must_keep":["Kontakt po stronie Wykonawcy"],"roundtrip_required":true},
+    {"id":"b2b_bdo_01","profile":"b2b_contract","input":"Nr BDO: 000123456. Wykonawca potwierdza wpis do rejestru.","must_mask":["000123456"],"must_keep":["Nr BDO:"],"roundtrip_required":true},
+    {"id":"b2b_vat_eu_01","profile":"b2b_contract","input":"VAT UE: DE123456789 wskazano w załączniku rozliczeniowym.","must_mask":["DE123456789"],"must_keep":["VAT UE:"],"roundtrip_required":true},
+    {"id":"b2b_edelivery_01","profile":"b2b_contract","input":"Adres ePUAP: /ABC123/skrytka oraz adres do e-Doręczeń AE:PL-12345-67890-ABCDE-12 zostały wskazane w umowie.","must_mask":["/ABC123/skrytka","AE:PL-12345-67890-ABCDE-12"],"must_keep":["zostały wskazane"],"roundtrip_required":true},
+    {"id":"false_positive_decision_title_01","profile":"false_positive","input":"Decyzja Prezesa UODO dotyczy zasad bezpieczeństwa przetwarzania, ale numer decyzji nie został podany.","must_mask":[],"must_keep":["Decyzja Prezesa UODO","numer decyzji nie został podany"],"roundtrip_required":true},
+    {"id":"false_positive_contract_subject_01","profile":"false_positive","input":"Przedmiotem Umowy jest dostawa laptopów oraz stacji dokujących.","must_mask":[],"must_keep":["dostawa laptopów","stacji dokujących"],"roundtrip_required":true}
+  ]
+}

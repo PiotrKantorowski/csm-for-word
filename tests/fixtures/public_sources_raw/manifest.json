@@ -1,0 +1,56 @@
+[
+  {
+    "name": "gov_vehicle_sale_pdf",
+    "url": "https://www.gov.pl/attachment/1de13e93-b0bc-4214-a780-bf32d9154517",
+    "file": "tests/fixtures/public_sources_raw/gov_vehicle_sale_pdf.bin",
+    "bytes": 85488,
+    "sha256": "9da3aab3217dd7e92e179e063ad231467a222f68a8ff3ad9782b002311fc61dc",
+    "status": "cached",
+    "verified_at": "2026-07-04"
+  },
+  {
+    "name": "gov_vehicle_sale_pdf_alt",
+    "url": "https://www.gov.pl/attachment/d1ee1c5d-e8df-4010-aa20-ad40e0c439c9",
+    "file": "tests/fixtures/public_sources_raw/gov_vehicle_sale_pdf_alt.bin",
+    "bytes": 144223,
+    "sha256": "4e1019cc4c1974899bba85e5441e969518d3792b70f573842104ff11f5a47950",
+    "status": "cached",
+    "verified_at": "2026-07-04"
+  },
+  {
+    "name": "gov_power_of_attorney",
+    "url": "https://www.gov.pl/attachment/0b0203e3-aad9-4d14-a0ec-9e453171f50c",
+    "file": "tests/fixtures/public_sources_raw/gov_power_of_attorney.bin",
+    "bytes": 30720,
+    "sha256": "696ec2eaf5bf2f4813092824f64bdb7d926ba1269230dcc4c13c32668c46280c",
+    "status": "cached",
+    "verified_at": "2026-07-04"
+  },
+  {
+    "name": "gov_commercial_lease",
+    "url": "https://www.gov.pl/attachment/aef63d8c-1fa0-4891-9770-956926af1742",
+    "file": "tests/fixtures/public_sources_raw/gov_commercial_lease.bin",
+    "bytes": 76288,
+    "sha256": "97cd092bfb7d10bb5d9ee8496ebb72db4a9dc8c416930ee6f35eb8e72c64f890",
+    "status": "cached",
+    "verified_at": "2026-07-04"
+  },
+  {
+    "name": "senat_commercial_lease_doc",
+    "url": "https://www.senat.gov.pl/gfx/senat/userfiles/_public/bss/wzory/29_umowa_najmu_podnajmu_lokalu_uzytkowego.doc",
+    "file": "tests/fixtures/public_sources_raw/senat_commercial_lease_doc.bin",
+    "bytes": 45056,
+    "sha256": "b5c5cfe929c91c7c7e2f9946448d94c52749065a1a3d0d1e508d946cfc26acd7",
+    "status": "cached",
+    "verified_at": "2026-07-04"
+  },
+  {
+    "name": "so_warszawa_response_to_claim_doc",
+    "url": "https://bip.warszawa.so.gov.pl/uploads/files/migration/mstoleczne/boi/wzory_i_formularze/OP%20formularz%20%20-%20odpowiedz%20na%20pozew.doc",
+    "file": "tests/fixtures/public_sources_raw/so_warszawa_response_to_claim_doc.bin",
+    "bytes": 72704,
+    "sha256": "7a3c6d47cce9a201d8fa2e1bb5e0b9f20fc8b504f5c445b8708ebdb329e891af",
+    "status": "cached",
+    "verified_at": "2026-07-04"
+  }
+]

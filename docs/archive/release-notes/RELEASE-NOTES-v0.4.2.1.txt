@@ -1,0 +1,9 @@
+CSM v0.4.2.1
+
+Mały patch domykający linię 0.4.2:
+- instrukcja zaktualizowana do v0.4.2.1;
+- dodano opis ręcznych reguł użytkownika;
+- dodano UI scalania placeholderów: SOURCE => TARGET;
+- dodano przycisk czyszczenia ręcznych reguł;
+- backend stosuje scalanie placeholderów przy regeneracji dokumentu _CSM_anon;
+- zachowano wcześniejsze poprawki raportów, instalatora i anonimizacji prawniczej.

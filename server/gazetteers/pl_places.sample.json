@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "description": "Sample of Polish locality names for documentation and testing. The full runtime gazetteer is embedded in server/pl_gazetteers.py::LOCALITIES (69,984 entries, nominative + genitive forms). This sample exists for illustration and test fixture purposes.",
+  "source_ref": "teryt_localities",
+  "generated_at": "2026-05-20",
+  "masking_rule": "A locality name alone must NOT be masked. Masking requires legal/address context: 'zamieszkały w', 'z siedzibą w', 'siedzibą w', 'adres', 'ul.', postal code, or party-data row.",
+  "entries": [
+    {"nominative": "Białystok",   "genitive": "Białystoku"},
+    {"nominative": "Bydgoszcz",   "genitive": "Bydgoszczy"},
+    {"nominative": "Częstochowa", "genitive": "Częstochowy"},
+    {"nominative": "Gdańsk",      "genitive": "Gdańska"},
+    {"nominative": "Gdynia",      "genitive": "Gdyni"},
+    {"nominative": "Katowice",    "genitive": "Katowic"},
+    {"nominative": "Kraków",      "genitive": "Krakowa"},
+    {"nominative": "Lublin",      "genitive": "Lublina"},
+    {"nominative": "Łódź",        "genitive": "Łodzi"},
+    {"nominative": "Poznań",      "genitive": "Poznania"},
+    {"nominative": "Pustynia",    "genitive": "Pustyni"},
+    {"nominative": "Rzeszów",     "genitive": "Rzeszowa"},
+    {"nominative": "Szczecin",    "genitive": "Szczecina"},
+    {"nominative": "Toruń",       "genitive": "Torunia"},
+    {"nominative": "Warszawa",    "genitive": "Warszawy"},
+    {"nominative": "Wrocław",     "genitive": "Wrocławia"},
+    {"nominative": "Zabrze",      "genitive": "Zabrza"},
+    {"nominative": "Zielona Góra","genitive": "Zielonej Góry"},
+    {"nominative": "Dębica",      "genitive": "Dębicy"},
+    {"nominative": "Piła",        "genitive": "Piły"}
+  ]
+}

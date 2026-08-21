@@ -1,0 +1,37 @@
+CSM for Word v1.5 — Release Notes
+
+CSM for Word v1.0 pozostaje bazą produkcyjną tej linii wydania. Wersja v1.5
+poprawia dokładność wykrywania numerów PESEL i przyspiesza silnik detekcji na
+długich pismach. Zasady powrotu do wersji jawnej nie zostały zmienione.
+
+Najważniejsze zmiany
+
+1. Dokładniejsze wykrywanie numeru PESEL.
+   - Goła 11-cyfrowa liczba bez etykiety "PESEL" w pobliżu jest teraz ukrywana
+     tylko wtedy, gdy ma poprawną sumę kontrolną. Numery referencyjne
+     zamówień/zgłoszeń o długości 11 cyfr (np. "Numer referencyjny zamówienia
+     to 99999999999") nie są już błędnie ukrywane jako PESEL.
+   - Liczba opisana etykietą "PESEL" jest ukrywana zawsze, także przy błędnej
+     sumie kontrolnej (np. literówka w dokumencie) — reguła bezpieczeństwa
+     z wcześniejszych wersji nie została zmieniona.
+
+2. Szybsze przetwarzanie długich pism.
+   - Silnik detekcji odrzuca teraz warianty aliasów (odmiany imion, nazwisk,
+     nazw firm), które w ogóle nie występują w dokumencie, przed budową
+     wyrażeń regularnych. Na pismach z wieloma stronami i wieloma unikalnymi
+     danymi osobowymi przyspiesza to maskowanie ponad dwukrotnie.
+   - Wynik maskowania jest identyczny — to wyłącznie optymalizacja wydajności.
+
+3. Spójne oznaczenie wydania.
+   Panel dodatku, manifest, instalator, pliki pakietu i instrukcje użytkownika
+   są oznaczone jako CSM for Word v1.5.
+
+Uwagi operacyjne
+
+- Reguły ręczne i raporty anonimizacji pozostają zapisywane lokalnie.
+- Mechanizm przywracania wersji jawnej nie został zmieniony.
+- Tryby kontroli anonimizacji z v1.3 działają bez zmian: analiza Bielik pozostaje
+  opcjonalna i uruchamiana wyłącznie na świadome żądanie użytkownika.
+- Wykrywanie ukrytych błędów jakości (v1.4) pozostaje aktywne bez zmian:
+  firmy jednoosobowe, prefiksy P.P.H.U./F.H.U., inicjał+nazwisko, zagraniczne
+  IBAN, odmieniona nazwa sądu.
