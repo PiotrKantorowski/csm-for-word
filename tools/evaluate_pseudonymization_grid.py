@@ -138,7 +138,23 @@ def print_text_report(report: dict[str, Any]) -> None:
                 print(f"      {failure['type']}: {failure['value']}{detail}")
 
 
+def _force_utf8_output() -> None:
+    """Print Polish legal text regardless of the console code page.
+
+    The report contains Polish characters. On a Windows console or pipe that
+    defaults to a non-Polish ANSI code page (cp1252 on English systems and on CI
+    runners) writing them raises UnicodeEncodeError and the evaluator exits 1
+    without having found any real defect.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8")
+        except (AttributeError, ValueError):
+            pass
+
+
 def main(argv: list[str] | None = None) -> int:
+    _force_utf8_output()
     parser = argparse.ArgumentParser(description="Evaluate CSM pseudonymization mapping grid corpus")
     parser.add_argument("--cases", type=Path, default=DEFAULT_CASES, help="Path to JSON case corpus")
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON report")

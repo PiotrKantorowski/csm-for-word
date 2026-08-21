@@ -17,8 +17,10 @@ runtime/sessions/*
 !runtime/backups/.keep
 !runtime/sessions/.keep
 
-# Installer output
-installer/output/
+# Installer output. The note explaining why the EXE is absent is tracked,
+# because tests/test_installer_output_cleanliness.py reads it.
+installer/output/*
+!installer/output/README-SETUP-NOT-INCLUDED.txt
 *.exe
 
 # Python/package/build outputs

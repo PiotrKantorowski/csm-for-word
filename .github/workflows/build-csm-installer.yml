@@ -41,6 +41,14 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install -r server\requirements.txt
 
+      # The source-hygiene tests assert that the checked-out tree carries no build
+      # outputs, so lint and the full suite must run before anything compiles.
+      - name: Lint static assets
+        run: npm run lint --silent
+
+      - name: Run full test suite
+        run: python tests\run_pytest.py -q
+
       - name: Restore sidecar
         run: |
           dotnet restore sidecar\CSM.RevisionSidecar\CSM.RevisionSidecar.csproj
@@ -58,14 +66,10 @@ jobs:
           if (-not $exe) { throw "Compiled sidecar not found" }
           echo "CSM_REVISION_SIDECAR_CMD=$exe" >> $env:GITHUB_ENV
 
+      # Runs last because it needs the compiled sidecar; the three tests it covers
+      # are skipped by the full suite above when CSM_REVISION_SIDECAR_CMD is unset.
       - name: Run sidecar integration tests
         run: python -m pytest -q tests\test_revision_sidecar_integration.py
-
-      - name: Lint static assets
-        run: npm run lint --silent
-
-      - name: Run full test suite
-        run: python -m pytest -q
 
       - name: Build static assets
         run: npm run build --silent
