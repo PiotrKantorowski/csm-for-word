@@ -17,6 +17,10 @@ concurrency:
 jobs:
   qa:
     runs-on: windows-latest
+    # The runner console is cp1252. Polish report text crossing a pipe needs UTF-8
+    # on both ends; tests/run_pytest.py sets this for its own children as well.
+    env:
+      PYTHONUTF8: '1'
     steps:
       - uses: actions/checkout@v6
         with:

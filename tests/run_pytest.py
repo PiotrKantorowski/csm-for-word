@@ -35,6 +35,11 @@ def cleanup_project_caches() -> None:
 def prepare_env() -> dict[str, str]:
     env = os.environ.copy()
     env["PYTEST_DISABLE_PLUGIN_AUTOLOAD"] = "1"
+    # Polish text crosses process boundaries in several tests: a tool prints a
+    # report, the test decodes it. Without UTF-8 mode both sides fall back to the
+    # Windows ANSI code page, so the suite passes on a Polish machine (cp1250) and
+    # fails on an English one or on CI (cp1252) with a bare UnicodeEncodeError.
+    env["PYTHONUTF8"] = "1"
     test_runtime = Path(tempfile.mkdtemp(prefix="csm-pytest-"))
     # Force isolated paths for the test process; inherited developer env vars
     # must not redirect tests into the real project/install tree.
